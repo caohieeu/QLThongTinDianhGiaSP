@@ -24,7 +24,8 @@ namespace QuanLyThongTinDanhGiaSP.VIews
             LoadData();
             //AddData();
             //DeleteData();
-            UpdateData();
+            //UpdateData();
+            GetById();
         }
         void LoadData()
         {
@@ -52,6 +53,11 @@ namespace QuanLyThongTinDanhGiaSP.VIews
                 create_at = DateTime.Now,
             };
             _categoriesService.UpdateCategory(categorie);
+        }
+        void GetById()
+        {
+            var a = _categoriesService.GetById("4687fdd5-2189-4b1f-8477-85a40361c37f");
+            var b = 1;  
         }
     }
 }

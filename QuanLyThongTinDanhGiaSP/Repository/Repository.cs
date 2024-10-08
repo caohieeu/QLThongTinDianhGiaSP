@@ -101,7 +101,24 @@ namespace QuanLyThongTinDanhGiaSP.Repository
                 foreach (var prop in typeof(T).GetProperties())
                 {
                     var value = row.GetValue<object>(prop.Name.ToLower());
-                    prop.SetValue(instance, value);
+                    if (value != null)
+                    {
+                        if (prop.PropertyType == typeof(string))
+                        {
+                            prop.SetValue(instance, value.ToString());
+                        }
+                        else if (prop.PropertyType == typeof(Guid))
+                        {
+                            prop.SetValue(instance, Guid.Parse(value.ToString()));
+                        }
+                        else if (prop.PropertyType == typeof(DateTime))
+                        {
+                            if (DateTime.TryParse(value.ToString(), out DateTime dateValue))
+                            {
+                                prop.SetValue(instance, dateValue);
+                            }
+                        }
+                    }
                 }
             }
 

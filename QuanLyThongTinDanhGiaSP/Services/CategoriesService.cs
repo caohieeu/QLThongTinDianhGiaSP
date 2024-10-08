@@ -21,6 +21,10 @@ namespace QuanLyThongTinDanhGiaSP.Services
         {
             return _categoriesRepository.GetAll().ToList();
         }
+        public Categories GetById(string id)
+        {
+            return _categoriesRepository.GetById(id);
+        }
         public bool AddCategory(Categories category)
         {
             return _categoriesRepository.Add(category);
