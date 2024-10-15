@@ -17,6 +17,10 @@ namespace QuanLyThongTinDanhGiaSP.Services
         {
             _categoriesRepository = new CategoriesRepository(new CassandraContext(Utils.KeySpace));
         }
+        public CategoriesService()
+        {
+            _categoriesRepository = new CategoriesRepository(new CassandraContext(Utils.KeySpace));
+        }
         public List<Categories> GetAllCategory()
         {
             return _categoriesRepository.GetAll().ToList();

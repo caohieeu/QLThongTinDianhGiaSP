@@ -135,13 +135,27 @@
   <ItemGroup>
     <Compile Include="DAL\CassandraContext.cs" />
     <Compile Include="Models\Categories.cs" />
+    <Compile Include="Models\products.cs" />
+    <Compile Include="Models\users.cs" />
     <Compile Include="Repository\CategoriesRepository.cs" />
     <Compile Include="Repository\IRepository\ICategoriesRepository.cs" />
+    <Compile Include="Repository\IRepository\IProductRepository.cs" />
     <Compile Include="Repository\IRepository\IRepository.cs" />
+    <Compile Include="Repository\IRepository\IUserRepository.cs" />
+    <Compile Include="Repository\ProductsRepository.cs" />
     <Compile Include="Repository\Repository.cs" />
+    <Compile Include="Repository\UsersRepository.cs" />
     <Compile Include="Services\CassandraService.cs" />
     <Compile Include="Services\CategoriesService.cs" />
+    <Compile Include="Services\ProductService.cs" />
+    <Compile Include="Services\UsersService.cs" />
     <Compile Include="Utils.cs" />
+    <Compile Include="VIews\ChildProductForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VIews\ChildProductForm.Designer.cs">
+      <DependentUpon>ChildProductForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="VIews\Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -156,6 +170,18 @@
     <Compile Include="VIews\CategoryForm.Designer.cs">
       <DependentUpon>CategoryForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="VIews\ProductForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VIews\ProductForm.Designer.cs">
+      <DependentUpon>ProductForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VIews\UserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VIews\UserForm.Designer.cs">
+      <DependentUpon>UserForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -165,11 +191,20 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="VIews\ChildProductForm.resx">
+      <DependentUpon>ChildProductForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="VIews\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VIews\CategoryForm.resx">
       <DependentUpon>CategoryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VIews\ProductForm.resx">
+      <DependentUpon>ProductForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VIews\UserForm.resx">
+      <DependentUpon>UserForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

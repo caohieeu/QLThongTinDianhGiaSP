@@ -24,9 +24,37 @@ namespace QuanLyThongTinDanhGiaSP
             categoryForm.TopLevel = false;
             categoryForm.FormBorderStyle = FormBorderStyle.None;
 
+            categoryForm.Size = new Size(panel1.Width, panel1.Height);
+
             panel1.Controls.Clear(); 
             panel1.Controls.Add(categoryForm); 
             categoryForm.Show();
+        }
+
+        private void btnProduct_Click(object sender, EventArgs e)
+        {
+            ProductForm productForm = new ProductForm();
+            productForm.TopLevel = false;
+            productForm.FormBorderStyle = FormBorderStyle.None;
+
+            productForm.Size = new Size(panel1.Width, panel1.Height);
+
+            panel1.Controls.Clear();
+            panel1.Controls.Add(productForm);
+            productForm.Show();
+        }
+
+        private void btnUser_Click(object sender, EventArgs e)
+        {
+            UserForm userForm = new UserForm();
+            userForm.TopLevel = false;
+            userForm.FormBorderStyle = FormBorderStyle.None;
+
+            userForm.Size = new Size(panel1.Width, panel1.Height);
+
+            panel1.Controls.Clear();
+            panel1.Controls.Add(userForm);
+            userForm.Show();
         }
     }
 }
