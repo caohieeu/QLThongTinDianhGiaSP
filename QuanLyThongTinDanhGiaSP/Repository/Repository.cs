@@ -168,5 +168,88 @@ namespace QuanLyThongTinDanhGiaSP.Repository
                 return false;
             }
         }
+        public IEnumerable<T> FilterByName(string columnName,string name)
+        {
+            string typeName = typeof(T).Name.ToLower();
+
+            string query = $"SELECT * FROM {typeName} WHERE {columnName} = '{name}' ALLOW FILTERING";
+
+            try
+            {
+                var result = _context.executeQuery(query);
+                var list = new List<T>();
+
+                foreach (var row in result)
+                {
+                    var instance = Activator.CreateInstance<T>();
+                    foreach (var prop in typeof(T).GetProperties())
+                    {
+                        var value = row.GetValue<object>(prop.Name.ToLower());
+                        if (value != null)
+                        {
+                            if (prop.PropertyType == typeof(string))
+                            {
+                                prop.SetValue(instance, value.ToString());
+                            }
+                            else if (prop.PropertyType == typeof(Guid))
+                            {
+                                prop.SetValue(instance, Guid.Parse(value.ToString()));
+                            }
+                            else if (prop.PropertyType == typeof(DateTime))
+                            {
+                                if (DateTime.TryParse(value.ToString(), out DateTime dateValue))
+                                {
+                                    prop.SetValue(instance, dateValue);
+                                }
+                            }
+                        }
+                    }
+                    list.Add(instance);
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+        }
+        public IEnumerable<T> FilterByDate(DateTime startDate, DateTime endDate,string date)
+        {
+            string typeName = typeof(T).Name.ToLower();
+            string sql = $"SELECT * FROM {typeName} WHERE {date} >= '{startDate:yyyy-MM-dd}' AND {date} <= '{endDate:yyyy-MM-dd}' ALLOW FILTERING";
+            var result = _context.executeQuery(sql);
+
+            var list = new List<T>();
+
+            foreach (var row in result)
+            {
+                var instance = Activator.CreateInstance<T>();
+                foreach (var prop in typeof(T).GetProperties())
+                {
+                    var value = row.GetValue<object>(prop.Name.ToLower());
+                    if (value != null)
+                    {
+                        if (prop.PropertyType == typeof(string))
+                        {
+                            prop.SetValue(instance, value.ToString());
+                        }
+                        else if (prop.PropertyType == typeof(Guid))
+                        {
+                            prop.SetValue(instance, Guid.Parse(value.ToString()));
+                        }
+                        else if (prop.PropertyType == typeof(DateTime))
+                        {
+                            if (DateTime.TryParse(value.ToString(), out DateTime dateValue))
+                            {
+                                prop.SetValue(instance, dateValue);
+                            }
+                        }
+                    }
+                }
+                list.Add(instance);
+            }
+            return list;
+        }
     }
 }

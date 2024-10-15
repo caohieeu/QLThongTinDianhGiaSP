@@ -1,4 +1,5 @@
-﻿using QuanLyThongTinDanhGiaSP.Services;
+﻿using QuanLyThongTinDanhGiaSP.Models;
+using QuanLyThongTinDanhGiaSP.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,7 +20,12 @@ namespace QuanLyThongTinDanhGiaSP.VIews
             InitializeComponent();
             _productService = new ProductService();
             LoadData();
+            LoadProductIntoComboBox();
+            this.btn_Loc.Click += Btn_Loc_Click;
         }
+
+        
+
         public void LoadData()
         {
             dataGridView1.DataSource = _productService.GetAllProduct();
@@ -46,5 +52,54 @@ namespace QuanLyThongTinDanhGiaSP.VIews
                 LoadData();
             }
         }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+        
+        private void LoadProductIntoComboBox()
+        {
+            var allProducts = _productService.GetAllProduct();
+
+            var productNames = new List<string> { "" };
+
+            productNames.AddRange(allProducts.Select(c => c.category_name).ToList());
+
+            cbb_NameProducts.DataSource = productNames;
+
+            cbb_NameProducts.SelectedIndex = 0;
+        }
+        private void Btn_Loc_Click(object sender, EventArgs e)
+        {
+            string selecteProductsName = cbb_NameProducts.SelectedItem?.ToString();
+            DateTime selectedDate_Start = dateTime_start.Value;
+            DateTime selectedDate_End = dateTime_end.Value;
+
+            IEnumerable<products> filteredUsers;
+
+            if (!string.IsNullOrWhiteSpace(selecteProductsName))
+            {
+                filteredUsers = _productService.FilterProductByName("category_name", selecteProductsName);
+
+                if (dateTime_start.Value != null && dateTime_end.Value != null)
+                {
+                    filteredUsers = filteredUsers
+                        .Where(category => category.create_at >= selectedDate_Start && category.create_at <= selectedDate_End);
+                }
+            }
+            else if (dateTime_start.Value != null && dateTime_end.Value != null)
+            {
+                filteredUsers = _productService.FilterProductByDate(selectedDate_Start, selectedDate_End, "create_at ");
+            }
+            else
+            {
+
+                filteredUsers = _productService.GetAllProduct();
+            }
+
+            dataGridView1.DataSource = filteredUsers.ToList();
+        }
+
     }
 }

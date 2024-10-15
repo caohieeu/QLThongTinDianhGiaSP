@@ -23,5 +23,13 @@ namespace QuanLyThongTinDanhGiaSP.Services
         {
             return _userRepository.GetAll();
         }
+        public List<users> FilterUsersByName(string columnName, string name)
+        {
+            return _userRepository.FilterByName(columnName, name).ToList();
+        }
+        public List<users> FilterUsersByDate(DateTime startDate, DateTime endDate, string date)
+        {
+            return _userRepository.FilterByDate(startDate, endDate, date).ToList();
+        }
     }
 }

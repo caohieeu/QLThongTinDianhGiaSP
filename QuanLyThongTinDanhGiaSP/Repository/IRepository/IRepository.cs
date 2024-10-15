@@ -13,5 +13,7 @@ namespace QuanLyThongTinDanhGiaSP.Repository.IRepository
         bool Add(T entity);
         bool Remove(string id);
         bool Update(T entity);
+        IEnumerable<T> FilterByDate(DateTime startDate, DateTime endDate,string date);
+        IEnumerable<T> FilterByName(string columnName, string name);
     }
 }

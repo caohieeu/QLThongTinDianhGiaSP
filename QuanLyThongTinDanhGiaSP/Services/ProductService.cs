@@ -39,5 +39,13 @@ namespace QuanLyThongTinDanhGiaSP.Services
         {
             return _productRepository.RemoveProduct(proId, cateId);
         }
+        public List<products> FilterProductByName(string columnName, string name)
+        {
+            return _productRepository.FilterByName(columnName, name).ToList();
+        }
+        public List<products> FilterProductByDate(DateTime startDate, DateTime endDate, string date)
+        {
+            return _productRepository.FilterByDate(startDate, endDate, date).ToList();
+        }
     }
 }

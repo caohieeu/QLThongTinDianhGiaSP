@@ -41,5 +41,13 @@ namespace QuanLyThongTinDanhGiaSP.Services
         {
             return _categoriesRepository.Update(category);
         }
+        public List<Categories> FilterCategoriesByName(string columnName, string name)
+        {
+            return _categoriesRepository.FilterByName(columnName,name).ToList();
+        }
+        public List<Categories> FilterCategoriesByDate(DateTime startDate, DateTime endDate, string date)
+        {
+            return _categoriesRepository.FilterByDate(startDate, endDate,date).ToList();
+        }
     }
 }

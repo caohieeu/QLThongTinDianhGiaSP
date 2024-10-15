@@ -26,7 +26,11 @@ namespace QuanLyThongTinDanhGiaSP.VIews
             //DeleteData();
             //UpdateData();
             GetById();
+            this.btn_Loc.Click += Btn_Loc_Click;
+            
+            LoadCategoriesIntoComboBox();
         }
+
         void LoadData()
         {
             dataGridView1.DataSource = _categoriesService.GetAllCategory();
@@ -59,5 +63,50 @@ namespace QuanLyThongTinDanhGiaSP.VIews
             var a = _categoriesService.GetById("4687fdd5-2189-4b1f-8477-85a40361c37f");
             var b = 1;  
         }
+
+        private void LoadCategoriesIntoComboBox()
+        {
+            var allCategories = _categoriesService.GetAllCategory();
+
+            var categoryNames = new List<string> { "" };
+
+            categoryNames.AddRange(allCategories.Select(c => c.name).ToList());
+
+            cbb_NameCategories.DataSource = categoryNames;
+
+            cbb_NameCategories.SelectedIndex = 0;
+        }
+        private void Btn_Loc_Click(object sender, EventArgs e)
+        {
+            string selectedCategoryName = cbb_NameCategories.SelectedItem?.ToString(); 
+            DateTime selectedDate_Start = dateTime_start.Value;
+            DateTime selectedDate_End = dateTime_end.Value;
+
+            IEnumerable<Categories> filteredCategories;
+
+            if (!string.IsNullOrWhiteSpace(selectedCategoryName))
+            {
+                filteredCategories = _categoriesService.FilterCategoriesByName("name",selectedCategoryName);
+
+                if (dateTime_start.Value != null && dateTime_end.Value != null)
+                {
+                    filteredCategories = filteredCategories
+                        .Where(category => category.create_at >= selectedDate_Start && category.create_at <= selectedDate_End);
+                }
+            }
+            else if (dateTime_start.Value != null && dateTime_end.Value != null)
+            {
+                filteredCategories = _categoriesService.FilterCategoriesByDate(selectedDate_Start, selectedDate_End, "create_at");
+            }
+            else
+            {
+              
+                filteredCategories = _categoriesService.GetAllCategory();
+            }
+
+            dataGridView1.DataSource = filteredCategories.ToList();
+        }
+
+       
     }
 }
