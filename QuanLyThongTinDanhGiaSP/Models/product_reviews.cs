@@ -20,7 +20,7 @@ namespace QuanLyThongTinDanhGiaSP.Models
 
         public string ReviewText { get; set; }
 
-        public DateTime PurchaseDate { get; set; }
+        public DateTime? PurchaseDate { get; set; }
 
         public string Status { get; set; }
 
