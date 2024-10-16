@@ -8,6 +8,6 @@ namespace QuanLyThongTinDanhGiaSP
 {
     public static class Utils
     {
-        public static string KeySpace = "QLThongTinDanhGiaSanPham";
+        public static string KeySpace = "qlthongtindanhgiasp";
     }
 }

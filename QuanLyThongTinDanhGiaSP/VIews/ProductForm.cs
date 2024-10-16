@@ -24,11 +24,35 @@ namespace QuanLyThongTinDanhGiaSP.VIews
             this.btn_Loc.Click += Btn_Loc_Click;
         }
 
-        
+    
 
         public void LoadData()
         {
-            dataGridView1.DataSource = _productService.GetAllProduct();
+            var products = _productService.GetAllProduct();
+            DisplayProducts(products);
+        }
+
+         private void DisplayProducts(IEnumerable<products> products)
+        {
+            flowLayoutPanel1.Controls.Clear();
+            flowLayoutPanel1.AutoScroll = true;
+            foreach (var product in products)
+            {
+                var productControl = new ProductItemControl(product);
+                productControl.Width = flowLayoutPanel1.ClientSize.Width - SystemInformation.VerticalScrollBarWidth - 20;
+                productControl.DoubleClick += (sender, e) => ProductControl_DoubleClick(product);
+                flowLayoutPanel1.Controls.Add(productControl);
+            }
+        }
+
+        private void ProductControl_DoubleClick(products product)
+        {
+            ChildProductForm frm = new ChildProductForm("edit", product.product_id.ToString(), product.category_id.ToString());
+            frm.ShowDialog();
+            if (frm.IsSave)
+            {
+                LoadData();
+            }
         }
 
         private void toolStripAdd_Click(object sender, EventArgs e)
@@ -43,14 +67,14 @@ namespace QuanLyThongTinDanhGiaSP.VIews
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            var productId = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
-            var categoryId = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
-            ChildProductForm frm = new ChildProductForm("edit", productId, categoryId);
-            frm.ShowDialog();
-            if (frm.IsSave)
-            {
-                LoadData();
-            }
+            //var productId = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+            //var categoryId = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
+            //ChildProductForm frm = new ChildProductForm("edit", productId, categoryId);
+            //frm.ShowDialog();
+            //if (frm.IsSave)
+            //{
+            //    LoadData();
+            //}
         }
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
@@ -98,7 +122,7 @@ namespace QuanLyThongTinDanhGiaSP.VIews
                 filteredUsers = _productService.GetAllProduct();
             }
 
-            dataGridView1.DataSource = filteredUsers.ToList();
+            //dataGridView1.DataSource = filteredUsers.ToList();
         }
 
     }
