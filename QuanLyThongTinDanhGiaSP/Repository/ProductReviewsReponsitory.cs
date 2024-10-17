@@ -18,6 +18,27 @@ namespace QuanLyThongTinDanhGiaSP.Repository
             _context = context;
         }
 
+        public bool UpdateReviewReply(Guid productId, Guid reviewId, string reply)
+        {
+            string query = $@"
+                    UPDATE product_reviews 
+                    SET confirm_text = '{reply}', 
+                        is_confirm = true, 
+                        confirm_date = toDate(now()) 
+                    WHERE review_id = {reviewId} AND product_id = {productId}";
+            try
+            {
+                // Sử dụng ExecuteQuery với parameters để tránh SQL injection
+                _context.executeQuery(query);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating review reply: {ex.Message}");
+                return false;
+            }
+        }
+
         public IEnumerable<Product_Review> GetProductReviews(Guid productId)
         {
             string query = $"SELECT * FROM product_reviews WHERE product_id = {productId}";
@@ -53,19 +74,38 @@ namespace QuanLyThongTinDanhGiaSP.Repository
                         }
 
                         a.Status = row.GetValue<string>("status");
-                        a.ConfirmText = row.GetValue<string>("confirm_text");
-                        a.IsConfirm = row.GetValue<bool>("is_confirm");
+                        if (!row.IsNull("confirm_text"))
+                        {
+                            a.ConfirmText = row.GetValue<string>("confirm_text");
+                        }
+
+                        // Xử lý is_confirm
+                        if (!row.IsNull("is_confirm"))
+                        {
+                            a.IsConfirm = row.GetValue<bool>("is_confirm");
+                        }
 
                         // Xử lý confirm_date
-                        var confirmDateValue = row.GetValue<object>("confirm_date");
-                        if (confirmDateValue is Cassandra.LocalDate confirmLocalDate)
+                        if (!row.IsNull("confirm_date"))
                         {
-                            // Chuyển đổi LocalDate thành DateTime
-                            a.ConfirmDate = new DateTime(confirmLocalDate.Year, confirmLocalDate.Month, confirmLocalDate.Day);
+                            var confirmDateValue = row.GetValue<object>("confirm_date");
+                            if (confirmDateValue is Cassandra.LocalDate confirmLocalDate)
+                            {
+                                // Chuyển đổi LocalDate thành DateTime
+                                a.ConfirmDate = new DateTime(confirmLocalDate.Year, confirmLocalDate.Month, confirmLocalDate.Day);
+                            }
+                            else if (confirmDateValue is DateTime confirmDateTime)
+                            {
+                                a.ConfirmDate = confirmDateTime;
+                            }
+                            else
+                            {
+                                a.ConfirmDate = null; // Hoặc xử lý khác nếu cần
+                            }
                         }
                         else
                         {
-                            a.ConfirmDate = (DateTime?)null; // Hoặc xử lý khác nếu cần
+                            a.ConfirmDate = null;
                         }
                     }
                     catch (InvalidCastException ex)
@@ -90,11 +130,6 @@ namespace QuanLyThongTinDanhGiaSP.Repository
         }
 
         public bool RemoveProduct(string productId, string categoryId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ReplyReview(string reply, string idReview)
         {
             throw new NotImplementedException();
         }

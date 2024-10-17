@@ -11,6 +11,6 @@ namespace QuanLyThongTinDanhGiaSP.Repository.IRepository
     {
         IEnumerable<Product_Review> GetProductReviews(Guid productId);
         bool RemoveProduct(string productId, string categoryId);
-        void ReplyReview(string reply, string idReview);
+        bool UpdateReviewReply(Guid productId, Guid reviewId, string reply);
     }
 }

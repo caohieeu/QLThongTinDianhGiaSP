@@ -144,6 +144,12 @@
     <Compile Include="ProductItemControl.Designer.cs">
       <DependentUpon>ProductItemControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="ProductReviewsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProductReviewsControl.Designer.cs">
+      <DependentUpon>ProductReviewsControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repository\CategoriesRepository.cs" />
     <Compile Include="Repository\IRepository\ICategoriesRepository.cs" />
     <Compile Include="Repository\IRepository\IProductRepository.cs" />
@@ -199,6 +205,9 @@
     </Compile>
     <EmbeddedResource Include="ProductItemControl.resx">
       <DependentUpon>ProductItemControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProductReviewsControl.resx">
+      <DependentUpon>ProductReviewsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

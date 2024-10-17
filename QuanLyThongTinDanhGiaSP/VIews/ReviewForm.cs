@@ -19,19 +19,34 @@ namespace QuanLyThongTinDanhGiaSP.VIews
         private products _product;
         private readonly IProductReviewsReponsitory _productReviewsReponsitory;
         private readonly CassandraContext _cassandraContext = new CassandraContext(Utils.KeySpace);
+        
         public ReviewForm(products product)
         {
             InitializeComponent();
             _productReviewsReponsitory = new ProductReviewsReponsitory(_cassandraContext);
             _product = product;
+
             LoadReviews();
         }
 
         private void LoadReviews()
         {
             this.Text = $"Đánh giá cho {_product.name}";
-            var a = _productReviewsReponsitory.GetProductReviews(Guid.Parse("2fde1530-eb96-491a-8b64-67d43cd9afa4"));
-            dataGridView1.DataSource = a;
+            var reviews = _productReviewsReponsitory.GetProductReviews(_product.product_id);
+
+            DisplayReviews(reviews);
+        }
+
+        private void DisplayReviews(IEnumerable<Product_Review> reviews)
+        {
+            flowLayoutPanel1.Controls.Clear();
+            flowLayoutPanel1.AutoScroll = true;
+
+            foreach (var review in reviews)
+            {
+                var reviewControl = new ProductReviewsControl(review);
+                flowLayoutPanel1.Controls.Add(reviewControl);
+            }
         }
     }
 }
