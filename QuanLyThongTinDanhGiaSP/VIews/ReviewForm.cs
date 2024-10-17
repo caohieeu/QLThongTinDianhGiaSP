@@ -2,6 +2,7 @@
 using QuanLyThongTinDanhGiaSP.Models;
 using QuanLyThongTinDanhGiaSP.Repository;
 using QuanLyThongTinDanhGiaSP.Repository.IRepository;
+using QuanLyThongTinDanhGiaSP.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,12 +19,14 @@ namespace QuanLyThongTinDanhGiaSP.VIews
     {
         private products _product;
         private readonly IProductReviewsReponsitory _productReviewsReponsitory;
+        private readonly ProductService _productService;
         private readonly CassandraContext _cassandraContext = new CassandraContext(Utils.KeySpace);
         
         public ReviewForm(products product)
         {
             InitializeComponent();
             _productReviewsReponsitory = new ProductReviewsReponsitory(_cassandraContext);
+            _productService = new ProductService();
             _product = product;
 
             LoadReviews();
