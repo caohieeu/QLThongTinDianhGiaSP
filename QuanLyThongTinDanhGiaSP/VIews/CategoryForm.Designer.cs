@@ -31,6 +31,8 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.cqlDataAdapter1 = new Cassandra.Data.CqlDataAdapter();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txt_Search = new System.Windows.Forms.TextBox();
             this.name = new System.Windows.Forms.Label();
             this.dateTime_end = new System.Windows.Forms.DateTimePicker();
             this.dateTime_start = new System.Windows.Forms.DateTimePicker();
@@ -55,6 +57,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.txt_Search);
             this.panel1.Controls.Add(this.name);
             this.panel1.Controls.Add(this.dateTime_end);
             this.panel1.Controls.Add(this.dateTime_start);
@@ -66,10 +70,26 @@
             this.panel1.Size = new System.Drawing.Size(680, 126);
             this.panel1.TabIndex = 2;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(144, 20);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(129, 13);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "Tìm kiếm tên thương hiệu:";
+            // 
+            // txt_Search
+            // 
+            this.txt_Search.Location = new System.Drawing.Point(279, 17);
+            this.txt_Search.Name = "txt_Search";
+            this.txt_Search.Size = new System.Drawing.Size(200, 20);
+            this.txt_Search.TabIndex = 13;
+            // 
             // name
             // 
             this.name.AutoSize = true;
-            this.name.Location = new System.Drawing.Point(21, 41);
+            this.name.Location = new System.Drawing.Point(21, 67);
             this.name.Name = "name";
             this.name.Size = new System.Drawing.Size(70, 13);
             this.name.TabIndex = 11;
@@ -77,21 +97,21 @@
             // 
             // dateTime_end
             // 
-            this.dateTime_end.Location = new System.Drawing.Point(279, 55);
+            this.dateTime_end.Location = new System.Drawing.Point(279, 81);
             this.dateTime_end.Name = "dateTime_end";
             this.dateTime_end.Size = new System.Drawing.Size(200, 20);
             this.dateTime_end.TabIndex = 10;
             // 
             // dateTime_start
             // 
-            this.dateTime_start.Location = new System.Drawing.Point(279, 29);
+            this.dateTime_start.Location = new System.Drawing.Point(279, 55);
             this.dateTime_start.Name = "dateTime_start";
             this.dateTime_start.Size = new System.Drawing.Size(200, 20);
             this.dateTime_start.TabIndex = 9;
             // 
             // btn_Loc
             // 
-            this.btn_Loc.Location = new System.Drawing.Point(143, 79);
+            this.btn_Loc.Location = new System.Drawing.Point(516, 64);
             this.btn_Loc.Name = "btn_Loc";
             this.btn_Loc.Size = new System.Drawing.Size(75, 23);
             this.btn_Loc.TabIndex = 8;
@@ -101,7 +121,7 @@
             // cbb_NameCategories
             // 
             this.cbb_NameCategories.FormattingEnabled = true;
-            this.cbb_NameCategories.Location = new System.Drawing.Point(97, 38);
+            this.cbb_NameCategories.Location = new System.Drawing.Point(97, 64);
             this.cbb_NameCategories.Name = "cbb_NameCategories";
             this.cbb_NameCategories.Size = new System.Drawing.Size(121, 21);
             this.cbb_NameCategories.TabIndex = 7;
@@ -133,5 +153,7 @@
         private System.Windows.Forms.DateTimePicker dateTime_start;
         private System.Windows.Forms.Button btn_Loc;
         private System.Windows.Forms.ComboBox cbb_NameCategories;
+        private System.Windows.Forms.TextBox txt_Search;
+        private System.Windows.Forms.Label label1;
     }
 }

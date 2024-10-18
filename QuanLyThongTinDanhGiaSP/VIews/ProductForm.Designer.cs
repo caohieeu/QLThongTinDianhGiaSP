@@ -31,13 +31,15 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripAdd = new System.Windows.Forms.ToolStripLabel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.username = new System.Windows.Forms.Label();
             this.btn_Loc = new System.Windows.Forms.Button();
             this.dateTime_end = new System.Windows.Forms.DateTimePicker();
             this.dateTime_start = new System.Windows.Forms.DateTimePicker();
             this.cbb_NameProducts = new System.Windows.Forms.ComboBox();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.txt_Search = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -75,8 +77,17 @@
             this.tableLayoutPanel1.TabIndex = 2;
             this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(594, 270);
+            this.flowLayoutPanel1.TabIndex = 0;
+            // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.txt_Search);
             this.panel1.Controls.Add(this.username);
             this.panel1.Controls.Add(this.btn_Loc);
             this.panel1.Controls.Add(this.dateTime_end);
@@ -91,7 +102,7 @@
             // username
             // 
             this.username.AutoSize = true;
-            this.username.Location = new System.Drawing.Point(15, 47);
+            this.username.Location = new System.Drawing.Point(16, 81);
             this.username.Name = "username";
             this.username.Size = new System.Drawing.Size(83, 13);
             this.username.TabIndex = 9;
@@ -99,7 +110,7 @@
             // 
             // btn_Loc
             // 
-            this.btn_Loc.Location = new System.Drawing.Point(150, 81);
+            this.btn_Loc.Location = new System.Drawing.Point(472, 78);
             this.btn_Loc.Name = "btn_Loc";
             this.btn_Loc.Size = new System.Drawing.Size(75, 23);
             this.btn_Loc.TabIndex = 8;
@@ -108,14 +119,14 @@
             // 
             // dateTime_end
             // 
-            this.dateTime_end.Location = new System.Drawing.Point(249, 63);
+            this.dateTime_end.Location = new System.Drawing.Point(250, 97);
             this.dateTime_end.Name = "dateTime_end";
             this.dateTime_end.Size = new System.Drawing.Size(200, 20);
             this.dateTime_end.TabIndex = 7;
             // 
             // dateTime_start
             // 
-            this.dateTime_start.Location = new System.Drawing.Point(249, 26);
+            this.dateTime_start.Location = new System.Drawing.Point(250, 60);
             this.dateTime_start.Name = "dateTime_start";
             this.dateTime_start.Size = new System.Drawing.Size(200, 20);
             this.dateTime_start.TabIndex = 6;
@@ -123,17 +134,26 @@
             // cbb_NameProducts
             // 
             this.cbb_NameProducts.FormattingEnabled = true;
-            this.cbb_NameProducts.Location = new System.Drawing.Point(104, 44);
+            this.cbb_NameProducts.Location = new System.Drawing.Point(105, 78);
             this.cbb_NameProducts.Name = "cbb_NameProducts";
             this.cbb_NameProducts.Size = new System.Drawing.Size(121, 21);
             this.cbb_NameProducts.TabIndex = 4;
             // 
-            // flowLayoutPanel1
+            // txt_Search
             // 
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(594, 270);
-            this.flowLayoutPanel1.TabIndex = 0;
+            this.txt_Search.Location = new System.Drawing.Point(250, 20);
+            this.txt_Search.Name = "txt_Search";
+            this.txt_Search.Size = new System.Drawing.Size(200, 20);
+            this.txt_Search.TabIndex = 14;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(143, 27);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(101, 13);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "Tìm kiếm sản phẩm:";
             // 
             // ProductForm
             // 
@@ -167,5 +187,7 @@
         private System.Windows.Forms.Button btn_Loc;
         private System.Windows.Forms.Label username;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txt_Search;
     }
 }

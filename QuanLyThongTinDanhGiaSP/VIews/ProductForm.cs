@@ -22,9 +22,10 @@ namespace QuanLyThongTinDanhGiaSP.VIews
             LoadData();
             LoadProductIntoComboBox();
             this.btn_Loc.Click += Btn_Loc_Click;
+            txt_Search.TextChanged += Txt_Search_TextChanged;
         }
 
-    
+       
 
         public void LoadData()
         {
@@ -96,33 +97,54 @@ namespace QuanLyThongTinDanhGiaSP.VIews
         }
         private void Btn_Loc_Click(object sender, EventArgs e)
         {
-            string selecteProductsName = cbb_NameProducts.SelectedItem?.ToString();
+            string selectedProductsName = cbb_NameProducts.SelectedItem?.ToString();
             DateTime selectedDate_Start = dateTime_start.Value;
             DateTime selectedDate_End = dateTime_end.Value;
 
-            IEnumerable<products> filteredUsers;
+            IEnumerable<products> filteredProducts;
 
-            if (!string.IsNullOrWhiteSpace(selecteProductsName))
+            // Lọc theo tên sản phẩm
+            if (!string.IsNullOrWhiteSpace(selectedProductsName))
             {
-                filteredUsers = _productService.FilterProductByName("category_name", selecteProductsName);
+                filteredProducts = _productService.FilterProductByName("category_name", selectedProductsName);
 
+                // Lọc thêm theo ngày nếu đã chọn
                 if (dateTime_start.Value != null && dateTime_end.Value != null)
                 {
-                    filteredUsers = filteredUsers
-                        .Where(category => category.create_at >= selectedDate_Start && category.create_at <= selectedDate_End);
+                    filteredProducts = filteredProducts
+                        .Where(product => product.create_at >= selectedDate_Start && product.create_at <= selectedDate_End);
                 }
             }
+            // Lọc theo ngày nếu không chọn tên sản phẩm
             else if (dateTime_start.Value != null && dateTime_end.Value != null)
             {
-                filteredUsers = _productService.FilterProductByDate(selectedDate_Start, selectedDate_End, "create_at ");
+                filteredProducts = _productService.FilterProductByDate(selectedDate_Start, selectedDate_End, "create_at");
             }
             else
             {
-
-                filteredUsers = _productService.GetAllProduct();
+                // Nếu không có điều kiện lọc nào thì lấy tất cả sản phẩm
+                filteredProducts = _productService.GetAllProduct();
             }
 
-            //dataGridView1.DataSource = filteredUsers.ToList();
+            // Hiển thị lại các sản phẩm đã lọc trong flowLayoutPanel
+            DisplayProducts(filteredProducts);
+        }
+        private void Txt_Search_TextChanged(object sender, EventArgs e)
+        {
+            string inputText = txt_Search.Text.Trim();
+
+            if (!string.IsNullOrEmpty(inputText))
+            {
+                // Lọc sản phẩm theo tên trong _productService
+                var filteredProducts = _productService.FilterProductByName("name", inputText);
+
+                // Hiển thị sản phẩm đã lọc trong flowLayoutPanel
+                DisplayProducts(filteredProducts);
+            }
+            else
+            {
+                LoadData(); // Gọi lại phương thức LoadData để lấy tất cả sản phẩm
+            }
         }
 
     }

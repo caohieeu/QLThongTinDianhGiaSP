@@ -15,5 +15,6 @@ namespace QuanLyThongTinDanhGiaSP.Repository.IRepository
         bool Update(T entity);
         IEnumerable<T> FilterByDate(DateTime startDate, DateTime endDate,string date);
         IEnumerable<T> FilterByName(string columnName, string name);
+        IEnumerable<string> SearchSuggestions(string columnName, string inputValue);
     }
 }

@@ -49,5 +49,9 @@ namespace QuanLyThongTinDanhGiaSP.Services
         {
             return _categoriesRepository.FilterByDate(startDate, endDate,date).ToList();
         }
+        public IEnumerable<string> SearchSuggestions(string columnName, string inputValue)
+        {
+            return _categoriesRepository.SearchSuggestions(columnName, inputValue);
+        }
     }
 }

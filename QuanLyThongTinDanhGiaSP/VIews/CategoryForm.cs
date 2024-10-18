@@ -27,9 +27,11 @@ namespace QuanLyThongTinDanhGiaSP.VIews
             //UpdateData();
             GetById();
             this.btn_Loc.Click += Btn_Loc_Click;
-            
+            txt_Search.TextChanged += Txt_Search_TextChanged;
             LoadCategoriesIntoComboBox();
         }
+
+       
 
         void LoadData()
         {
@@ -75,6 +77,7 @@ namespace QuanLyThongTinDanhGiaSP.VIews
             cbb_NameCategories.DataSource = categoryNames;
 
             cbb_NameCategories.SelectedIndex = 0;
+
         }
         private void Btn_Loc_Click(object sender, EventArgs e)
         {
@@ -106,7 +109,22 @@ namespace QuanLyThongTinDanhGiaSP.VIews
 
             dataGridView1.DataSource = filteredCategories.ToList();
         }
+        private void Txt_Search_TextChanged(object sender, EventArgs e)
+        {
+            string inputText = txt_Search.Text.Trim();
 
-       
+            if (!string.IsNullOrEmpty(inputText))
+            {
+
+                var filteredCategories = _categoriesService.FilterCategoriesByName("name", inputText);
+
+                dataGridView1.DataSource = filteredCategories.ToList();
+            }
+            else
+            {
+
+                dataGridView1.DataSource = _categoriesService.GetAllCategory();
+            }
+        }
     }
 }

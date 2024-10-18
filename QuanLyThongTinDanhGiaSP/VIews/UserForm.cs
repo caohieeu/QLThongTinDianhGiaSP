@@ -22,9 +22,11 @@ namespace QuanLyThongTinDanhGiaSP.VIews
             LoadData();
             LoadUsersIntoComboBox();
             this.btn_Loc.Click += Btn_Loc_Click;
+            txt_Search.TextChanged += Txt_Search_TextChanged;
         }
 
        
+
         public void LoadData()
         {
             dataGridView1.DataSource = _usersService.GetAllUser();
@@ -71,6 +73,22 @@ namespace QuanLyThongTinDanhGiaSP.VIews
 
             dataGridView1.DataSource = filteredUsers.ToList();
         }
+        private void Txt_Search_TextChanged(object sender, EventArgs e)
+        {
+            string inputText = txt_Search.Text.Trim();
 
+            if (!string.IsNullOrEmpty(inputText))
+            {
+
+                var filteredCategories = _usersService.FilterUsersByName("username", inputText);
+
+                dataGridView1.DataSource = filteredCategories.ToList();
+            }
+            else
+            {
+
+                dataGridView1.DataSource = _usersService.GetAllUser();
+            }
+        }
     }
 }

@@ -57,17 +57,17 @@ namespace QuanLyThongTinDanhGiaSP
             userForm.Show();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            ReviewForm frm = new UserForm();
-            frm.TopLevel = false;
-            frm.FormBorderStyle = FormBorderStyle.None;
+        //private void button1_Click(object sender, EventArgs e)
+        //{
+        //    ReviewForm frm = new UserForm();
+        //    frm.TopLevel = false;
+        //    frm.FormBorderStyle = FormBorderStyle.None;
 
-            frm.Size = new Size(panel1.Width, panel1.Height);
+        //    frm.Size = new Size(panel1.Width, panel1.Height);
 
-            panel1.Controls.Clear();
-            panel1.Controls.Add(frm);
-            frm.Show();
-        }
+        //    panel1.Controls.Clear();
+        //    panel1.Controls.Add(frm);
+        //    frm.Show();
+        //}
     }
 }

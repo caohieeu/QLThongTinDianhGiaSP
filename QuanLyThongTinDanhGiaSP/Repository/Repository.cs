@@ -251,5 +251,38 @@ namespace QuanLyThongTinDanhGiaSP.Repository
             }
             return list;
         }
+        public IEnumerable<string> SearchSuggestions(string columnName, string inputValue)
+        {
+            string typeName = typeof(T).Name.ToLower();
+
+            
+            string query = $"SELECT {columnName} FROM {typeName} WHERE {columnName} = '{inputValue}' ALLOW FILTERING";
+
+            try
+            {
+                var result = _context.executeQuery(query);
+                if (result == null || !result.Any())  
+                {
+                    return new List<string>(); 
+                }
+                var suggestions = new List<string>();
+
+                foreach (var row in result)
+                {
+                    var value = row.GetValue<object>(columnName.ToLower());
+                    if (value != null)
+                    {
+                        suggestions.Add(value.ToString());
+                    }
+                }
+                return suggestions;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+        }
+
     }
 }
