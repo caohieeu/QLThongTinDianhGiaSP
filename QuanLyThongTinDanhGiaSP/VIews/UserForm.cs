@@ -23,6 +23,10 @@ namespace QuanLyThongTinDanhGiaSP.VIews
         {
             InitializeComponent();
             _usersService = new UsersService();
+            dateTime_start.Format = DateTimePickerFormat.Custom;
+            dateTime_start.CustomFormat = "dd/MM/yyyy";
+            dateTime_end.Format = DateTimePickerFormat.Custom;
+            dateTime_end.CustomFormat = "dd/MM/yyyy";
             LoadData();
             LoadUsersIntoComboBox();
             this.btn_Loc.Click += Btn_Loc_Click;
@@ -75,8 +79,37 @@ namespace QuanLyThongTinDanhGiaSP.VIews
         }
         private void Btn_Loc_Click(object sender, EventArgs e)
         {
+            string selectedUser = cbb_NameUsers.SelectedItem?.ToString(); 
+            DateTime selectedDate_Start = dateTime_start.Value;
+            DateTime selectedDate_End = dateTime_end.Value;
 
+            IEnumerable<users> filteredUsers;
+
+            // Lọc theo vai trò
+            if (!string.IsNullOrWhiteSpace(selectedUser))
+            {
+                filteredUsers = _usersService.FilterUsersByName("username", selectedUser).ToList();
+
+                if (dateTime_start.Value != null && dateTime_end.Value != null)
+                {
+                    filteredUsers = filteredUsers
+                        .Where(user => user.dob >= selectedDate_Start && user.dob <= selectedDate_End)
+                        .ToList();
+                }
+            }
+            // Nếu chỉ lọc theo ngày
+            else if (dateTime_start.Value != null && dateTime_end.Value != null)
+            {
+                filteredUsers = _usersService.FilterUsersByDate(selectedDate_Start, selectedDate_End, "dob").ToList();
+            }
+            else
+            {
+                filteredUsers = _usersService.GetAllUser();
+            }
+
+            DisplayUsers(filteredUsers);
         }
+
 
         private void toolStripLabel2_Click(object sender, EventArgs e)
         {
@@ -99,13 +132,14 @@ namespace QuanLyThongTinDanhGiaSP.VIews
 
             if (!string.IsNullOrEmpty(inputText))
             {
+                var filteredUsers = _usersService.FilterUsersByName("username", inputText).ToList();
 
-                var filteredCategories = _usersService.FilterUsersByName("username", inputText);
-
+                DisplayUsers(filteredUsers);
             }
             else
             {
-
+                var allUsers = _usersService.GetAllUser();
+                DisplayUsers(allUsers);
             }
         }
     }

@@ -28,6 +28,11 @@ namespace QuanLyThongTinDanhGiaSP.VIews
             InitializeComponent();
             _productReviewsReponsitory = new ProductReviewsReponsitory(_cassandraContext);
             _productService = new ProductService();
+         
+            dateTime_start.Format = DateTimePickerFormat.Custom;
+            dateTime_start.CustomFormat = "dd/MM/yyyy";
+            dateTime_end.Format = DateTimePickerFormat.Custom;
+            dateTime_end.CustomFormat = "dd/MM/yyyy";
             LoadData();
             LoadProductIntoComboBox();
 
@@ -72,57 +77,44 @@ namespace QuanLyThongTinDanhGiaSP.VIews
             var productNames = new List<string> { "" };
 
             productNames.AddRange(allProducts.Select(c => c.category_name).ToList());
-
-            cbb_NameProducts.DataSource = productNames;
-
-            cbb_NameProducts.SelectedIndex = 0;
         }
 
         private void btn_Loc_Click_1(object sender, EventArgs e)
         {
-            string selectedProductsName = cbb_NameProducts.SelectedItem?.ToString();
             DateTime selectedDate_Start = dateTime_start.Value;
             DateTime selectedDate_End = dateTime_end.Value;
 
-            IEnumerable<products> filteredProducts;
+            IEnumerable<Product_Review> filteredReviews = _productReviewsReponsitory.GetProductReviews();
 
-            // Lọc theo tên sản phẩm
-            if (!string.IsNullOrWhiteSpace(selectedProductsName))
+            if (dateTime_start.Value != null && dateTime_end.Value != null)
             {
-                filteredProducts = _productService.FilterProductByName("category_name", selectedProductsName);
+                filteredReviews = filteredReviews
+                    .Where(review => review.PurchaseDate >= selectedDate_Start && review.PurchaseDate <= selectedDate_End);
+            }
 
-                // Lọc thêm theo ngày nếu đã chọn
-                if (dateTime_start.Value != null && dateTime_end.Value != null)
-                {
-                    filteredProducts = filteredProducts
-                        .Where(product => product.create_at >= selectedDate_Start && product.create_at <= selectedDate_End);
-                }
-            }
-            // Lọc theo ngày nếu không chọn tên sản phẩm
-            else if (dateTime_start.Value != null && dateTime_end.Value != null)
+            if (radioButton1.Checked)
             {
-                filteredProducts = _productService.FilterProductByDate(selectedDate_Start, selectedDate_End, "create_at");
+                filteredReviews = filteredReviews.Where(review => review.Rating >= 1 && review.Rating < 2);
             }
-            else
+            else if (radioButton2.Checked)
             {
-                // Nếu không có điều kiện lọc nào thì lấy tất cả sản phẩm
-                filteredProducts = _productService.GetAllProduct();
+                filteredReviews = filteredReviews.Where(review => review.Rating >= 2 && review.Rating < 3);
             }
+            else if (radioButton3.Checked)
+            {
+                filteredReviews = filteredReviews.Where(review => review.Rating >= 3 && review.Rating < 4);
+            }
+            else if (radioButton4.Checked)
+            {
+                filteredReviews = filteredReviews.Where(review => review.Rating >= 4 && review.Rating < 5);
+            }
+            else if (radioButton5.Checked)
+            {
+                filteredReviews = filteredReviews.Where(review => review.Rating == 5);
+            }
+
+            DisplayReviews(filteredReviews);
         }
 
-        private void txt_Search_TextChanged(object sender, EventArgs e)
-        {
-            string inputText = txt_Search.Text.Trim();
-
-            if (!string.IsNullOrEmpty(inputText))
-            {
-                // Lọc sản phẩm theo tên trong _productService
-                var filteredProducts = _productService.FilterProductByName("name", inputText);
-            }
-            else
-            {
-                LoadData(); // Gọi lại phương thức LoadData để lấy tất cả sản phẩm
-            }
-        }
     }
 }

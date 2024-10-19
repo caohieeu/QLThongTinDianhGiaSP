@@ -29,17 +29,18 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txt_Search = new System.Windows.Forms.TextBox();
-            this.username = new System.Windows.Forms.Label();
             this.btn_Loc = new System.Windows.Forms.Button();
             this.dateTime_end = new System.Windows.Forms.DateTimePicker();
             this.dateTime_start = new System.Windows.Forms.DateTimePicker();
-            this.cbb_NameProducts = new System.Windows.Forms.ComboBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripAdd = new System.Windows.Forms.ToolStripLabel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.radioButton4 = new System.Windows.Forms.RadioButton();
+            this.radioButton5 = new System.Windows.Forms.RadioButton();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -47,44 +48,19 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.txt_Search);
-            this.panel1.Controls.Add(this.username);
+            this.panel1.Controls.Add(this.radioButton5);
+            this.panel1.Controls.Add(this.radioButton4);
+            this.panel1.Controls.Add(this.radioButton3);
+            this.panel1.Controls.Add(this.radioButton2);
+            this.panel1.Controls.Add(this.radioButton1);
             this.panel1.Controls.Add(this.btn_Loc);
             this.panel1.Controls.Add(this.dateTime_end);
             this.panel1.Controls.Add(this.dateTime_start);
-            this.panel1.Controls.Add(this.cbb_NameProducts);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 428);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(631, 58);
             this.panel1.TabIndex = 7;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(101, 13);
-            this.label1.TabIndex = 15;
-            this.label1.Text = "Tìm kiếm sản phẩm:";
-            // 
-            // txt_Search
-            // 
-            this.txt_Search.Location = new System.Drawing.Point(131, 3);
-            this.txt_Search.Name = "txt_Search";
-            this.txt_Search.Size = new System.Drawing.Size(200, 20);
-            this.txt_Search.TabIndex = 14;
-            this.txt_Search.TextChanged += new System.EventHandler(this.txt_Search_TextChanged);
-            // 
-            // username
-            // 
-            this.username.AutoSize = true;
-            this.username.Location = new System.Drawing.Point(12, 33);
-            this.username.Name = "username";
-            this.username.Size = new System.Drawing.Size(83, 13);
-            this.username.TabIndex = 9;
-            this.username.Text = "Category Name:";
             // 
             // btn_Loc
             // 
@@ -109,14 +85,6 @@
             this.dateTime_start.Name = "dateTime_start";
             this.dateTime_start.Size = new System.Drawing.Size(183, 20);
             this.dateTime_start.TabIndex = 6;
-            // 
-            // cbb_NameProducts
-            // 
-            this.cbb_NameProducts.FormattingEnabled = true;
-            this.cbb_NameProducts.Location = new System.Drawing.Point(131, 28);
-            this.cbb_NameProducts.Name = "cbb_NameProducts";
-            this.cbb_NameProducts.Size = new System.Drawing.Size(200, 21);
-            this.cbb_NameProducts.TabIndex = 4;
             // 
             // toolStrip1
             // 
@@ -156,6 +124,61 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(625, 392);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(12, 19);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(53, 17);
+            this.radioButton1.TabIndex = 9;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "1 Sao";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(71, 19);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(53, 17);
+            this.radioButton2.TabIndex = 10;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "2 Sao";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton3
+            // 
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Location = new System.Drawing.Point(130, 19);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(53, 17);
+            this.radioButton3.TabIndex = 11;
+            this.radioButton3.TabStop = true;
+            this.radioButton3.Text = "3 Sao";
+            this.radioButton3.UseVisualStyleBackColor = true;
+            // 
+            // radioButton4
+            // 
+            this.radioButton4.AutoSize = true;
+            this.radioButton4.Location = new System.Drawing.Point(189, 19);
+            this.radioButton4.Name = "radioButton4";
+            this.radioButton4.Size = new System.Drawing.Size(53, 17);
+            this.radioButton4.TabIndex = 12;
+            this.radioButton4.TabStop = true;
+            this.radioButton4.Text = "4 Sao";
+            this.radioButton4.UseVisualStyleBackColor = true;
+            // 
+            // radioButton5
+            // 
+            this.radioButton5.AutoSize = true;
+            this.radioButton5.Location = new System.Drawing.Point(248, 19);
+            this.radioButton5.Name = "radioButton5";
+            this.radioButton5.Size = new System.Drawing.Size(53, 17);
+            this.radioButton5.TabIndex = 13;
+            this.radioButton5.TabStop = true;
+            this.radioButton5.Text = "5 Sao";
+            this.radioButton5.UseVisualStyleBackColor = true;
+            // 
             // MainReviewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -180,16 +203,17 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label username;
         private System.Windows.Forms.Button btn_Loc;
         private System.Windows.Forms.DateTimePicker dateTime_end;
         private System.Windows.Forms.DateTimePicker dateTime_start;
-        private System.Windows.Forms.ComboBox cbb_NameProducts;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripLabel toolStripAdd;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.TextBox txt_Search;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.RadioButton radioButton5;
+        private System.Windows.Forms.RadioButton radioButton4;
+        private System.Windows.Forms.RadioButton radioButton3;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton1;
     }
 }

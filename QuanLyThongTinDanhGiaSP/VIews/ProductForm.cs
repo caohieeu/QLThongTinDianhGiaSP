@@ -21,11 +21,16 @@ namespace QuanLyThongTinDanhGiaSP.VIews
         private readonly CassandraContext _cassandraContext = new CassandraContext(Utils.KeySpace);
         private readonly IProductReviewsReponsitory _productReviewsReponsitory;
         private readonly ProductService _productService;
+
         public ProductForm()
         {
             InitializeComponent();
             _productService = new ProductService();
             _productReviewsReponsitory = new ProductReviewsReponsitory(_cassandraContext);
+            dateTime_start.Format = DateTimePickerFormat.Custom;
+            dateTime_start.CustomFormat = "dd/MM/yyyy";
+            dateTime_end.Format = DateTimePickerFormat.Custom;
+            dateTime_end.CustomFormat = "dd/MM/yyyy";
             LoadData();
             LoadProductIntoComboBox();
             this.btn_Loc.Click += Btn_Loc_Click;
@@ -107,30 +112,25 @@ namespace QuanLyThongTinDanhGiaSP.VIews
 
             IEnumerable<products> filteredProducts;
 
-            // Lọc theo tên sản phẩm
             if (!string.IsNullOrWhiteSpace(selectedProductsName))
             {
                 filteredProducts = _productService.FilterProductByName("category_name", selectedProductsName);
 
-                // Lọc thêm theo ngày nếu đã chọn
                 if (dateTime_start.Value != null && dateTime_end.Value != null)
                 {
                     filteredProducts = filteredProducts
                         .Where(product => product.create_at >= selectedDate_Start && product.create_at <= selectedDate_End);
                 }
             }
-            // Lọc theo ngày nếu không chọn tên sản phẩm
             else if (dateTime_start.Value != null && dateTime_end.Value != null)
             {
                 filteredProducts = _productService.FilterProductByDate(selectedDate_Start, selectedDate_End, "create_at");
             }
             else
             {
-                // Nếu không có điều kiện lọc nào thì lấy tất cả sản phẩm
                 filteredProducts = _productService.GetAllProduct();
             }
 
-            // Hiển thị lại các sản phẩm đã lọc trong flowLayoutPanel
             DisplayProducts(filteredProducts);
         }
         private void Txt_Search_TextChanged(object sender, EventArgs e)
@@ -139,15 +139,13 @@ namespace QuanLyThongTinDanhGiaSP.VIews
 
             if (!string.IsNullOrEmpty(inputText))
             {
-                // Lọc sản phẩm theo tên trong _productService
                 var filteredProducts = _productService.FilterProductByName("name", inputText);
 
-                // Hiển thị sản phẩm đã lọc trong flowLayoutPanel
                 DisplayProducts(filteredProducts);
             }
             else
             {
-                LoadData(); // Gọi lại phương thức LoadData để lấy tất cả sản phẩm
+                LoadData(); 
             }
         }
         private void ExportReviewsToExcel()

@@ -95,46 +95,49 @@ namespace QuanLyThongTinDanhGiaSP.VIews
         }
         private void Btn_Loc_Click(object sender, EventArgs e)
         {
-            string selectedCategoryName = cbb_NameCategories.SelectedItem?.ToString(); 
+            string selectedCategoryName = cbb_NameCategories.SelectedItem?.ToString();
             DateTime selectedDate_Start = dateTime_start.Value;
             DateTime selectedDate_End = dateTime_end.Value;
 
-            IEnumerable<Categories> filteredCategories;
+            List<Categories> filteredCategories;
 
             if (!string.IsNullOrWhiteSpace(selectedCategoryName))
             {
-                filteredCategories = _categoriesService.FilterCategoriesByName("name",selectedCategoryName);
+                filteredCategories = _categoriesService.FilterCategoriesByName("name", selectedCategoryName).ToList();
 
                 if (dateTime_start.Value != null && dateTime_end.Value != null)
                 {
                     filteredCategories = filteredCategories
-                        .Where(category => category.create_at >= selectedDate_Start && category.create_at <= selectedDate_End);
+                        .Where(category => category.create_at >= selectedDate_Start && category.create_at <= selectedDate_End)
+                        .ToList();
                 }
             }
             else if (dateTime_start.Value != null && dateTime_end.Value != null)
             {
-                filteredCategories = _categoriesService.FilterCategoriesByDate(selectedDate_Start, selectedDate_End, "create_at");
+                filteredCategories = _categoriesService.FilterCategoriesByDate(selectedDate_Start, selectedDate_End, "create_at").ToList();
             }
             else
             {
-              
-                filteredCategories = _categoriesService.GetAllCategory();
+                filteredCategories = _categoriesService.GetAllCategory().ToList();
             }
-
+            DisplayCategories(filteredCategories);
         }
+
+
         private void Txt_Search_TextChanged(object sender, EventArgs e)
         {
             string inputText = txt_Search.Text.Trim();
 
             if (!string.IsNullOrEmpty(inputText))
             {
+                var filteredCategories = _categoriesService.FilterCategoriesByName("name", inputText).ToList();
 
-                var filteredCategories = _categoriesService.FilterCategoriesByName("name", inputText);
-
+                DisplayCategories(filteredCategories);
             }
             else
-            {
-
+            {             
+                var allCategories = _categoriesService.GetAllCategory().ToList();
+                DisplayCategories(allCategories);
             }
         }
 
