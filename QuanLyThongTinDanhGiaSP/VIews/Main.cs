@@ -16,6 +16,39 @@ namespace QuanLyThongTinDanhGiaSP
         public Main()
         {
             InitializeComponent();
+            ResizeImage();
+        }
+
+        private void ResizeImage()
+        {
+            pictureBox1.BackColor = Color.Transparent;
+
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.Size = new Size(150, 100);
+
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+
+            if (pictureBox1.Image != null)
+            {
+                Image originalImage = pictureBox1.Image;
+                Image resizedImage = new Bitmap(originalImage, new Size(150, 100));
+                pictureBox1.Image = resizedImage;
+                originalImage.Dispose();
+            }
+
+
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox2.Size = new Size(636, 460);
+
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+
+            if (pictureBox2.Image != null)
+            {
+                Image originalImage = pictureBox2.Image;
+                Image resizedImage = new Bitmap(originalImage, new Size(636, 460));
+                pictureBox2.Image = resizedImage;
+                originalImage.Dispose();
+            }
         }
 
         private void btnCategory_Click(object sender, EventArgs e)
@@ -33,7 +66,7 @@ namespace QuanLyThongTinDanhGiaSP
 
         private void btnProduct_Click(object sender, EventArgs e)
         {
-            ProductForm productForm = new ProductForm();
+            MainReviewForm productForm = new MainReviewForm();
             productForm.TopLevel = false;
             productForm.FormBorderStyle = FormBorderStyle.None;
 
@@ -59,7 +92,7 @@ namespace QuanLyThongTinDanhGiaSP
 
         private void btnSProduct_Click(object sender, EventArgs e)
         {
-            SProductForm frm = new SProductForm();
+            ProductForm frm = new ProductForm();
             frm.TopLevel = false;
             frm.FormBorderStyle = FormBorderStyle.None;
 

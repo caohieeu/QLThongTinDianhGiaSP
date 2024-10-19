@@ -21,22 +21,36 @@ namespace QuanLyThongTinDanhGiaSP.VIews
         {
             InitializeComponent();
             _categoriesService = new CategoriesService(new CategoriesRepository(new DAL.CassandraContext(Utils.KeySpace)));
-            LoadData();
-            //AddData();
-            //DeleteData();
-            //UpdateData();
+            dateTime_start.Format = DateTimePickerFormat.Custom;
+            dateTime_start.CustomFormat = "dd/MM/yyyy";
+            dateTime_end.Format = DateTimePickerFormat.Custom;
+            dateTime_end.CustomFormat = "dd/MM/yyyy";
+           
             GetById();
             this.btn_Loc.Click += Btn_Loc_Click;
             txt_Search.TextChanged += Txt_Search_TextChanged;
             LoadCategoriesIntoComboBox();
+
+            DisplayCategories(_categoriesService.GetAllCategory());
+
         }
 
-       
-
-        void LoadData()
+        private void DisplayCategories(List<Categories> categories)
         {
-            dataGridView1.DataSource = _categoriesService.GetAllCategory();
+            flowLayoutPanel1.Controls.Clear();
+            flowLayoutPanel1.AutoScroll = true;
+            foreach (var category in categories)
+            {
+                CategoryItemControl categoryControl = new CategoryItemControl(category);
+                categoryControl.Size = new Size(flowLayoutPanel1.Width - 40, 100); 
+                flowLayoutPanel1.Controls.Add(categoryControl);
+            }
+            flowLayoutPanel1.Refresh();
         }
+
+
+
+
         void AddData()
         {
             _categoriesService.AddCategory(new Categories()
@@ -107,7 +121,6 @@ namespace QuanLyThongTinDanhGiaSP.VIews
                 filteredCategories = _categoriesService.GetAllCategory();
             }
 
-            dataGridView1.DataSource = filteredCategories.ToList();
         }
         private void Txt_Search_TextChanged(object sender, EventArgs e)
         {
@@ -118,12 +131,10 @@ namespace QuanLyThongTinDanhGiaSP.VIews
 
                 var filteredCategories = _categoriesService.FilterCategoriesByName("name", inputText);
 
-                dataGridView1.DataSource = filteredCategories.ToList();
             }
             else
             {
 
-                dataGridView1.DataSource = _categoriesService.GetAllCategory();
             }
         }
 
@@ -131,21 +142,17 @@ namespace QuanLyThongTinDanhGiaSP.VIews
         {
             ChildCategoryForm frm = new ChildCategoryForm("add", null);
             frm.ShowDialog();
-            if (frm.IsSave)
-            {
-                LoadData();
-            }
+            
         }
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            var categoryId = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
-            ChildCategoryForm frm = new ChildCategoryForm("edit", categoryId);
-            frm.ShowDialog();
-            if (frm.IsSave)
-            {
-                LoadData();
-            }
+            
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

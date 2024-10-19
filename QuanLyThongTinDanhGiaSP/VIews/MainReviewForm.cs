@@ -9,23 +9,46 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using OfficeOpenXml;
+using QuanLyThongTinDanhGiaSP.DAL;
+using QuanLyThongTinDanhGiaSP.Repository;
+using QuanLyThongTinDanhGiaSP.Repository.IRepository;
 
 namespace QuanLyThongTinDanhGiaSP.VIews
 {
-    public partial class SProductForm : Form
+    public partial class MainReviewForm : Form
     {
         private readonly ProductService _productService;
-        public SProductForm()
+        private products _product;
+        private readonly IProductReviewsReponsitory _productReviewsReponsitory;
+        private readonly CassandraContext _cassandraContext = new CassandraContext(Utils.KeySpace);
+
+        public MainReviewForm()
         {
             InitializeComponent();
+            _productReviewsReponsitory = new ProductReviewsReponsitory(_cassandraContext);
             _productService = new ProductService();
             LoadData();
             LoadProductIntoComboBox();
+
+            DisplayReviews(_productReviewsReponsitory.GetProductReviews());
+        }
+
+
+        private void DisplayReviews(IEnumerable<Product_Review> reviews)
+        {
+            flowLayoutPanel1.Controls.Clear();
+            flowLayoutPanel1.AutoScroll = true;
+
+            foreach (var review in reviews)
+            {
+                var reviewControl = new ProductReviewsControl(review);
+                flowLayoutPanel1.Controls.Add(reviewControl);
+            }
         }
 
         public void LoadData()
         {
-            dataGridView1.DataSource = _productService.GetAllProduct();
         }
 
         private void toolStripAdd_Click(object sender, EventArgs e)
@@ -40,14 +63,7 @@ namespace QuanLyThongTinDanhGiaSP.VIews
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            var productId = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
-            var categoryId = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
-            ChildProductForm frm = new ChildProductForm("edit", productId, categoryId);
-            frm.ShowDialog();
-            if (frm.IsSave)
-            {
-                LoadData();
-            }
+            
         }
         private void LoadProductIntoComboBox()
         {
@@ -102,7 +118,6 @@ namespace QuanLyThongTinDanhGiaSP.VIews
             {
                 // Lọc sản phẩm theo tên trong _productService
                 var filteredProducts = _productService.FilterProductByName("name", inputText);
-                dataGridView1.DataSource = filteredProducts;
             }
             else
             {

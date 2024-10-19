@@ -26,13 +26,40 @@ namespace QuanLyThongTinDanhGiaSP.VIews
             LoadData();
             LoadUsersIntoComboBox();
             this.btn_Loc.Click += Btn_Loc_Click;
+            DisplayUsers(_usersService.GetAllUser());
         }
 
-       
+        private void DisplayUsers(IEnumerable<users> users)
+        {
+            flowLayoutPanel1.Controls.Clear();
+            flowLayoutPanel1.AutoScroll = true;
+
+            foreach (var user in users)
+            {
+                UserItemControl userControl = new UserItemControl(user);
+                userControl.EditUserRequested += (sender, userId) =>
+                {
+                    OpenEditUserForm(userId);
+                };
+                flowLayoutPanel1.Controls.Add(userControl);
+            }
+
+            flowLayoutPanel1.Refresh();
+        }
+
+        private void OpenEditUserForm(Guid userId)
+        {
+            ChildUserForm frm = new ChildUserForm("edit", userId.ToString());
+            frm.ShowDialog();
+            if (frm.IsSave)
+            {
+                LoadData();
+            }
+        }
+
 
         public void LoadData()
         {
-            dataGridView1.DataSource = _usersService.GetAllUser();
         }
         private void LoadUsersIntoComboBox()
         {
@@ -63,13 +90,7 @@ namespace QuanLyThongTinDanhGiaSP.VIews
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            var userId = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
-            ChildUserForm frm = new ChildUserForm("edit", userId);
-            frm.ShowDialog();
-            if (frm.IsSave)
-            {
-                LoadData();
-            }
+            
         }
 
         private void txt_Search_TextChanged(object sender, EventArgs e)
@@ -81,12 +102,10 @@ namespace QuanLyThongTinDanhGiaSP.VIews
 
                 var filteredCategories = _usersService.FilterUsersByName("username", inputText);
 
-                dataGridView1.DataSource = filteredCategories.ToList();
             }
             else
             {
 
-                dataGridView1.DataSource = _usersService.GetAllUser();
             }
         }
     }

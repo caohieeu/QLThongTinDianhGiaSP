@@ -213,6 +213,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategoryItemControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CategoryItemControl.Designer.cs">
+      <DependentUpon>CategoryItemControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="DAL\CassandraContext.cs" />
     <Compile Include="Models\Categories.cs" />
     <Compile Include="Models\products.cs" />
@@ -244,6 +250,12 @@
     <Compile Include="Services\CategoriesService.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\UsersService.cs" />
+    <Compile Include="UserItemControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserItemControl.Designer.cs">
+      <DependentUpon>UserItemControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utils.cs" />
     <Compile Include="VIews\AnalyticsForm.cs">
       <SubType>Form</SubType>
@@ -295,11 +307,11 @@
     <Compile Include="VIews\ReviewForm.Designer.cs">
       <DependentUpon>ReviewForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="VIews\SProductForm.cs">
+    <Compile Include="VIews\MainReviewForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="VIews\SProductForm.Designer.cs">
-      <DependentUpon>SProductForm.cs</DependentUpon>
+    <Compile Include="VIews\MainReviewForm.Designer.cs">
+      <DependentUpon>MainReviewForm.cs</DependentUpon>
     </Compile>
     <Compile Include="VIews\UserForm.cs">
       <SubType>Form</SubType>
@@ -307,6 +319,9 @@
     <Compile Include="VIews\UserForm.Designer.cs">
       <DependentUpon>UserForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CategoryItemControl.resx">
+      <DependentUpon>CategoryItemControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ProductItemControl.resx">
       <DependentUpon>ProductItemControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -321,7 +336,11 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UserItemControl.resx">
+      <DependentUpon>UserItemControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="VIews\AnalyticsForm.resx">
       <DependentUpon>AnalyticsForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -346,8 +365,8 @@
     <EmbeddedResource Include="VIews\ReviewForm.resx">
       <DependentUpon>ReviewForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="VIews\SProductForm.resx">
-      <DependentUpon>SProductForm.cs</DependentUpon>
+    <EmbeddedResource Include="VIews\MainReviewForm.resx">
+      <DependentUpon>MainReviewForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VIews\UserForm.resx">
       <DependentUpon>UserForm.cs</DependentUpon>
@@ -365,6 +384,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="unnamed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="pngtree-warehouse-space-for-goods-in-empty-pallets-picture-image_2457174.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="jjujuu.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
