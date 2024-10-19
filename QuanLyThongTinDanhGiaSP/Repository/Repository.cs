@@ -48,7 +48,35 @@ namespace QuanLyThongTinDanhGiaSP.Repository
             }
 
         }
+        public bool Add2(T entity)
+        {
+            string typeName = typeof(T).Name.ToLower();
+            var columns = string.Join(", ", typeof(T).GetProperties().Select(x => x.Name.ToLower()));
+            var values = typeof(T).GetProperties()
+                .Select(prop =>
+                {
+                    var value = prop.GetValue(entity);
+                    if (value is Guid || prop.PropertyType == typeof(Guid))
+                        return "uuid()";
+                    else if (value is DateTime || prop.PropertyType == typeof(DateTime))
+                        return $"'{((DateTime)value).ToString("yyyy-MM-dd")}'";
+                    else
+                        return value != null ? $"'{value}'" : "null";
+                });
+            var valueString = string.Join(", ", values);
+            string query = $"INSERT INTO {typeName} ({columns}) VALUES ({valueString})";
+            try
+            {
+                _context.executeQuery(query);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
 
+        }
         public IEnumerable<T> GetAll()
         {
             string typeName = typeof(T).Name.ToLower();
@@ -137,6 +165,31 @@ namespace QuanLyThongTinDanhGiaSP.Repository
                 var value = prop.GetValue(entity);
                 if (value is DateTime || prop.PropertyType == typeof(DateTime))
                     value = $"{((DateTime)value).ToString("yyyy-MM-dd HH:mm:ss")}";
+                return value != null ? $"{prop.Name.ToLower()} = '{value}'" : $"{prop.Name.ToLower()} = null";
+            }));
+            try
+            {
+                string sql = $"UPDATE {typeName} SET {condition} WHERE {idName}={idValue}";
+                var result = _context.executeQuery(sql);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool Update2(T entity)
+        {
+            var instance = Activator.CreateInstance<T>();
+            string idName = typeof(T).GetProperties()[0].Name.ToLower();
+            var idValue = typeof(T).GetProperties()[0].GetValue(entity);
+
+            string typeName = typeof(T).Name.ToLower();
+            var condition = string.Join(", ", typeof(T).GetProperties().Skip(1).Select(prop =>
+            {
+                var value = prop.GetValue(entity);
+                if (value is DateTime || prop.PropertyType == typeof(DateTime))
+                    value = $"{((DateTime)value).ToString("yyyy-MM-dd")}";
                 return value != null ? $"{prop.Name.ToLower()} = '{value}'" : $"{prop.Name.ToLower()} = null";
             }));
             try

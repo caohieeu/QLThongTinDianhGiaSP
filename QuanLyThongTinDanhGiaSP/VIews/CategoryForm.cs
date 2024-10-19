@@ -126,5 +126,26 @@ namespace QuanLyThongTinDanhGiaSP.VIews
                 dataGridView1.DataSource = _categoriesService.GetAllCategory();
             }
         }
+
+        private void toolStripLabel1_Click(object sender, EventArgs e)
+        {
+            ChildCategoryForm frm = new ChildCategoryForm("add", null);
+            frm.ShowDialog();
+            if (frm.IsSave)
+            {
+                LoadData();
+            }
+        }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var categoryId = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
+            ChildCategoryForm frm = new ChildCategoryForm("edit", categoryId);
+            frm.ShowDialog();
+            if (frm.IsSave)
+            {
+                LoadData();
+            }
+        }
     }
 }

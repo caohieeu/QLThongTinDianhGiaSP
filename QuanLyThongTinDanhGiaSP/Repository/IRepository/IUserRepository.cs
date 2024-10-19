@@ -9,5 +9,7 @@ namespace QuanLyThongTinDanhGiaSP.Repository.IRepository
 {
     public interface IUserRepository : IRepository<users>
     {
+        bool UpdateUser(users user);
+        bool RemoveUser(string userId);
     }
 }

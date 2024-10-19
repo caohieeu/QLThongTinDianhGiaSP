@@ -15,6 +15,10 @@ namespace QuanLyThongTinDanhGiaSP.VIews
     public partial class UserForm : Form
     {
         private readonly UsersService _usersService;
+        public bool IsSave;
+        public string _mode;
+        public string _productId;
+        public string _categoryId;
         public UserForm()
         {
             InitializeComponent();
@@ -22,7 +26,6 @@ namespace QuanLyThongTinDanhGiaSP.VIews
             LoadData();
             LoadUsersIntoComboBox();
             this.btn_Loc.Click += Btn_Loc_Click;
-            txt_Search.TextChanged += Txt_Search_TextChanged;
         }
 
        
@@ -45,35 +48,31 @@ namespace QuanLyThongTinDanhGiaSP.VIews
         }
         private void Btn_Loc_Click(object sender, EventArgs e)
         {
-            string selectedUsersName = cbb_NameUsers.SelectedItem?.ToString();
-            DateTime selectedDate_Start = dateTime_start.Value;
-            DateTime selectedDate_End = dateTime_end.Value;
 
-            IEnumerable<users> filteredUsers;
-
-            if (!string.IsNullOrWhiteSpace(selectedUsersName))
-            {
-                filteredUsers = _usersService.FilterUsersByName("username",selectedUsersName);
-
-                if (dateTime_start.Value != null && dateTime_end.Value != null)
-                {
-                    filteredUsers = filteredUsers
-                        .Where(category => category.dob >= selectedDate_Start && category.dob <= selectedDate_End);
-                }
-            }
-            else if (dateTime_start.Value != null && dateTime_end.Value != null)
-            {
-                filteredUsers = _usersService.FilterUsersByDate(selectedDate_Start, selectedDate_End, "dob");
-            }
-            else
-            {
-
-                filteredUsers = _usersService.GetAllUser();
-            }
-
-            dataGridView1.DataSource = filteredUsers.ToList();
         }
-        private void Txt_Search_TextChanged(object sender, EventArgs e)
+
+        private void toolStripLabel2_Click(object sender, EventArgs e)
+        {
+            ChildUserForm frm = new ChildUserForm("add", null);
+            frm.ShowDialog();
+            if (frm.IsSave)
+            {
+                LoadData();
+            }
+        }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var userId = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
+            ChildUserForm frm = new ChildUserForm("edit", userId);
+            frm.ShowDialog();
+            if (frm.IsSave)
+            {
+                LoadData();
+            }
+        }
+
+        private void txt_Search_TextChanged(object sender, EventArgs e)
         {
             string inputText = txt_Search.Text.Trim();
 

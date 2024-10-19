@@ -8,7 +8,7 @@ namespace QuanLyThongTinDanhGiaSP.Models
 {
     public class users
     {
-        public string user_id { get; set; }
+        public Guid user_id { get; set; }
         public string username { get; set; }
         public DateTime dob { get; set; }
         public string email { get; set; }

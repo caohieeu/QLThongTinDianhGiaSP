@@ -23,6 +23,22 @@ namespace QuanLyThongTinDanhGiaSP.Services
         {
             return _userRepository.GetAll();
         }
+        public users GetUserById(string id)
+        {
+            return _userRepository.GetById(id);
+        }
+        public bool AddUser(users user)
+        {
+            return _userRepository.Add2(user);
+        }
+        public bool UpadateUser(users user)
+        {
+            return _userRepository.Update2(user);
+        }
+        public bool RemoveUser(string userId)
+        {
+            return _userRepository.RemoveUser(userId);
+        }
         public List<users> FilterUsersByName(string columnName, string name)
         {
             return _userRepository.FilterByName(columnName, name).ToList();

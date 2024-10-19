@@ -165,11 +165,23 @@
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\UsersService.cs" />
     <Compile Include="Utils.cs" />
+    <Compile Include="VIews\ChildCategoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VIews\ChildCategoryForm.Designer.cs">
+      <DependentUpon>ChildCategoryForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="VIews\ChildProductForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="VIews\ChildProductForm.Designer.cs">
       <DependentUpon>ChildProductForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VIews\ChildUserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VIews\ChildUserForm.Designer.cs">
+      <DependentUpon>ChildUserForm.cs</DependentUpon>
     </Compile>
     <Compile Include="VIews\Main.cs">
       <SubType>Form</SubType>
@@ -197,6 +209,12 @@
     <Compile Include="VIews\ReviewForm.Designer.cs">
       <DependentUpon>ReviewForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="VIews\SProductForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VIews\SProductForm.Designer.cs">
+      <DependentUpon>SProductForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="VIews\UserForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -218,8 +236,14 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="VIews\ChildCategoryForm.resx">
+      <DependentUpon>ChildCategoryForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="VIews\ChildProductForm.resx">
       <DependentUpon>ChildProductForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VIews\ChildUserForm.resx">
+      <DependentUpon>ChildUserForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VIews\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
@@ -232,6 +256,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VIews\ReviewForm.resx">
       <DependentUpon>ReviewForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VIews\SProductForm.resx">
+      <DependentUpon>SProductForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VIews\UserForm.resx">
       <DependentUpon>UserForm.cs</DependentUpon>

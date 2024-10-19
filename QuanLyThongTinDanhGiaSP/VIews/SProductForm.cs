@@ -12,40 +12,25 @@ using System.Windows.Forms;
 
 namespace QuanLyThongTinDanhGiaSP.VIews
 {
-    public partial class ProductForm : Form
+    public partial class SProductForm : Form
     {
         private readonly ProductService _productService;
-        public ProductForm()
+        public SProductForm()
         {
             InitializeComponent();
             _productService = new ProductService();
             LoadData();
             LoadProductIntoComboBox();
-            this.btn_Loc.Click += Btn_Loc_Click;
-            txt_Search.TextChanged += Txt_Search_TextChanged;
         }
+
         public void LoadData()
         {
-            var products = _productService.GetAllProduct();
-            DisplayProducts(products);
+            dataGridView1.DataSource = _productService.GetAllProduct();
         }
 
-         private void DisplayProducts(IEnumerable<products> products)
+        private void toolStripAdd_Click(object sender, EventArgs e)
         {
-            flowLayoutPanel1.Controls.Clear();
-            flowLayoutPanel1.AutoScroll = true;
-            foreach (var product in products)
-            {
-                var productControl = new ProductItemControl(product);
-                productControl.Width = flowLayoutPanel1.ClientSize.Width - SystemInformation.VerticalScrollBarWidth - 20;
-                productControl.DoubleClick += (sender, e) => ProductControl_DoubleClick(product);
-                flowLayoutPanel1.Controls.Add(productControl);
-            }
-        }
-
-        private void ProductControl_DoubleClick(products product)
-        {
-            ChildProductForm frm = new ChildProductForm("edit", product.product_id.ToString(), product.category_id.ToString());
+            ChildProductForm frm = new ChildProductForm("add", null, null);
             frm.ShowDialog();
             if (frm.IsSave)
             {
@@ -53,33 +38,17 @@ namespace QuanLyThongTinDanhGiaSP.VIews
             }
         }
 
-        private void toolStripAdd_Click(object sender, EventArgs e)
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            ChildProductForm frm = new ChildProductForm("add", null, null);
+            var productId = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+            var categoryId = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
+            ChildProductForm frm = new ChildProductForm("edit", productId, categoryId);
             frm.ShowDialog();
-            if(frm.IsSave)
+            if (frm.IsSave)
             {
                 LoadData();
             }
         }
-
-        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            //var productId = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
-            //var categoryId = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
-            //ChildProductForm frm = new ChildProductForm("edit", productId, categoryId);
-            //frm.ShowDialog();
-            //if (frm.IsSave)
-            //{
-            //    LoadData();
-            //}
-        }
-
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-        
         private void LoadProductIntoComboBox()
         {
             var allProducts = _productService.GetAllProduct();
@@ -92,7 +61,8 @@ namespace QuanLyThongTinDanhGiaSP.VIews
 
             cbb_NameProducts.SelectedIndex = 0;
         }
-        private void Btn_Loc_Click(object sender, EventArgs e)
+
+        private void btn_Loc_Click_1(object sender, EventArgs e)
         {
             string selectedProductsName = cbb_NameProducts.SelectedItem?.ToString();
             DateTime selectedDate_Start = dateTime_start.Value;
@@ -122,11 +92,9 @@ namespace QuanLyThongTinDanhGiaSP.VIews
                 // Nếu không có điều kiện lọc nào thì lấy tất cả sản phẩm
                 filteredProducts = _productService.GetAllProduct();
             }
-
-            // Hiển thị lại các sản phẩm đã lọc trong flowLayoutPanel
-            DisplayProducts(filteredProducts);
         }
-        private void Txt_Search_TextChanged(object sender, EventArgs e)
+
+        private void txt_Search_TextChanged(object sender, EventArgs e)
         {
             string inputText = txt_Search.Text.Trim();
 
@@ -134,15 +102,12 @@ namespace QuanLyThongTinDanhGiaSP.VIews
             {
                 // Lọc sản phẩm theo tên trong _productService
                 var filteredProducts = _productService.FilterProductByName("name", inputText);
-
-                // Hiển thị sản phẩm đã lọc trong flowLayoutPanel
-                DisplayProducts(filteredProducts);
+                dataGridView1.DataSource = filteredProducts;
             }
             else
             {
                 LoadData(); // Gọi lại phương thức LoadData để lấy tất cả sản phẩm
             }
         }
-
     }
 }
