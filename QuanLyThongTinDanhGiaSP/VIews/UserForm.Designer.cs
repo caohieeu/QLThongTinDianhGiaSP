@@ -178,8 +178,8 @@
             // toolStripLabel2
             // 
             this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(37, 18);
-            this.toolStripLabel2.Text = "Add";
+            this.toolStripLabel2.Size = new System.Drawing.Size(46, 18);
+            this.toolStripLabel2.Text = "Thêm";
             this.toolStripLabel2.Click += new System.EventHandler(this.toolStripLabel2_Click);
             // 
             // UserForm

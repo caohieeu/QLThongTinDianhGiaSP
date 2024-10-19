@@ -1,4 +1,8 @@
-﻿using QuanLyThongTinDanhGiaSP.Models;
+﻿using OfficeOpenXml;
+using QuanLyThongTinDanhGiaSP.DAL;
+using QuanLyThongTinDanhGiaSP.Models;
+using QuanLyThongTinDanhGiaSP.Repository;
+using QuanLyThongTinDanhGiaSP.Repository.IRepository;
 using QuanLyThongTinDanhGiaSP.Services;
 using System;
 using System.Collections.Generic;
@@ -14,11 +18,14 @@ namespace QuanLyThongTinDanhGiaSP.VIews
 {
     public partial class ProductForm : Form
     {
+        private readonly CassandraContext _cassandraContext = new CassandraContext(Utils.KeySpace);
+        private readonly IProductReviewsReponsitory _productReviewsReponsitory;
         private readonly ProductService _productService;
         public ProductForm()
         {
             InitializeComponent();
             _productService = new ProductService();
+            _productReviewsReponsitory = new ProductReviewsReponsitory(_cassandraContext);
             LoadData();
             LoadProductIntoComboBox();
             this.btn_Loc.Click += Btn_Loc_Click;
@@ -143,6 +150,58 @@ namespace QuanLyThongTinDanhGiaSP.VIews
                 LoadData(); // Gọi lại phương thức LoadData để lấy tất cả sản phẩm
             }
         }
+        private void ExportReviewsToExcel()
+        {
+            var reviews = _productReviewsReponsitory.GetProductReviews(new Guid()).ToList();
 
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Danh sách đánh giá");
+
+                // Tiêu đề cột
+                worksheet.Cells[1, 1].Value = "Mã đánh giá";
+                worksheet.Cells[1, 2].Value = "Tên người dùng";
+                worksheet.Cells[1, 3].Value = "Điểm đánh giá";
+                worksheet.Cells[1, 4].Value = "Nội dung đánh giá";
+                worksheet.Cells[1, 5].Value = "Ngày mua";
+                worksheet.Cells[1, 6].Value = "Trạng thái";
+                worksheet.Cells[1, 7].Value = "Ngày xác nhận";
+
+                // Dữ liệu
+                for (int i = 0; i < reviews.Count; i++)
+                {
+                    var review = reviews[i];
+                    worksheet.Cells[i + 2, 1].Value = review.ReviewId.ToString();
+                    worksheet.Cells[i + 2, 2].Value = review.Username;
+                    worksheet.Cells[i + 2, 3].Value = review.Rating;
+                    worksheet.Cells[i + 2, 4].Value = review.ReviewText;
+                    worksheet.Cells[i + 2, 5].Value = review.PurchaseDate?.ToString("dd/MM/yyyy");
+                    worksheet.Cells[i + 2, 6].Value = review.Status;
+                    worksheet.Cells[i + 2, 7].Value = review.ConfirmDate?.ToString("dd/MM/yyyy");
+                }
+
+                // Định dạng
+                worksheet.Cells.AutoFitColumns();
+
+                // Lưu file
+                var saveFileDialog = new SaveFileDialog
+                {
+                    Filter = "Excel Files|*.xlsx",
+                    Title = "Lưu file đánh giá",
+                    //FileName = $"{_product.name}_DanhSachDanhGia.xlsx"
+                };
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    System.IO.File.WriteAllBytes(saveFileDialog.FileName, package.GetAsByteArray());
+                    MessageBox.Show("Xuất file thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ExportReviewsToExcel();
+        }
     }
 }

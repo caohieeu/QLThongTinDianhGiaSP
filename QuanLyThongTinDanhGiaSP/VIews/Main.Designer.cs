@@ -33,8 +33,9 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnSProduct = new System.Windows.Forms.Button();
-            this.btnProduct = new System.Windows.Forms.Button();
             this.btnUser = new System.Windows.Forms.Button();
+            this.btnProduct = new System.Windows.Forms.Button();
+            this.btnAnalytics = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -81,16 +82,18 @@
             this.tableLayoutPanel2.Controls.Add(this.btnUser, 0, 3);
             this.tableLayoutPanel2.Controls.Add(this.btnProduct, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.btnCategory, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.btnAnalytics, 0, 5);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 6;
+            this.tableLayoutPanel2.RowCount = 7;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 141F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 77F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 61F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 65F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 65F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 67F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 9F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(170, 562);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
@@ -105,6 +108,17 @@
             this.btnSProduct.UseVisualStyleBackColor = true;
             this.btnSProduct.Click += new System.EventHandler(this.btnSProduct_Click);
             // 
+            // btnUser
+            // 
+            this.btnUser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnUser.Location = new System.Drawing.Point(3, 282);
+            this.btnUser.Name = "btnUser";
+            this.btnUser.Size = new System.Drawing.Size(164, 59);
+            this.btnUser.TabIndex = 1;
+            this.btnUser.Text = "User";
+            this.btnUser.UseVisualStyleBackColor = true;
+            this.btnUser.Click += new System.EventHandler(this.btnUser_Click);
+            // 
             // btnProduct
             // 
             this.btnProduct.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -116,16 +130,16 @@
             this.btnProduct.UseVisualStyleBackColor = true;
             this.btnProduct.Click += new System.EventHandler(this.btnProduct_Click);
             // 
-            // btnUser
+            // btnAnalytics
             // 
-            this.btnUser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnUser.Location = new System.Drawing.Point(3, 282);
-            this.btnUser.Name = "btnUser";
-            this.btnUser.Size = new System.Drawing.Size(164, 59);
-            this.btnUser.TabIndex = 1;
-            this.btnUser.Text = "User";
-            this.btnUser.UseVisualStyleBackColor = true;
-            this.btnUser.Click += new System.EventHandler(this.btnUser_Click);
+            this.btnAnalytics.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnAnalytics.Location = new System.Drawing.Point(3, 412);
+            this.btnAnalytics.Name = "btnAnalytics";
+            this.btnAnalytics.Size = new System.Drawing.Size(164, 61);
+            this.btnAnalytics.TabIndex = 2;
+            this.btnAnalytics.Text = "Analytics";
+            this.btnAnalytics.UseVisualStyleBackColor = true;
+            this.btnAnalytics.Click += new System.EventHandler(this.btnAnalytics_Click);
             // 
             // Main
             // 
@@ -150,6 +164,7 @@
         private System.Windows.Forms.Button btnProduct;
         private System.Windows.Forms.Button btnUser;
         private System.Windows.Forms.Button btnSProduct;
+        private System.Windows.Forms.Button btnAnalytics;
     }
 }
 

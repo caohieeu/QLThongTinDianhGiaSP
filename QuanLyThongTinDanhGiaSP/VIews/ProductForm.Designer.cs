@@ -33,13 +33,13 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txt_Search = new System.Windows.Forms.TextBox();
             this.username = new System.Windows.Forms.Label();
             this.btn_Loc = new System.Windows.Forms.Button();
             this.dateTime_end = new System.Windows.Forms.DateTimePicker();
             this.dateTime_start = new System.Windows.Forms.DateTimePicker();
             this.cbb_NameProducts = new System.Windows.Forms.ComboBox();
-            this.txt_Search = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -52,15 +52,15 @@
             this.toolStripAdd});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(600, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(800, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // toolStripAdd
             // 
             this.toolStripAdd.Name = "toolStripAdd";
-            this.toolStripAdd.Size = new System.Drawing.Size(29, 22);
-            this.toolStripAdd.Text = "Add";
+            this.toolStripAdd.Size = new System.Drawing.Size(46, 28);
+            this.toolStripAdd.Text = "Thêm";
             this.toolStripAdd.Click += new System.EventHandler(this.toolStripAdd_Click);
             // 
             // tableLayoutPanel1
@@ -68,20 +68,21 @@
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 25);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 31);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(600, 276);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 340);
             this.tableLayoutPanel1.TabIndex = 2;
             this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(4, 4);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(594, 270);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(792, 332);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // panel1
@@ -94,76 +95,84 @@
             this.panel1.Controls.Add(this.dateTime_start);
             this.panel1.Controls.Add(this.cbb_NameProducts);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 306);
+            this.panel1.Location = new System.Drawing.Point(0, 376);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(600, 129);
+            this.panel1.Size = new System.Drawing.Size(800, 159);
             this.panel1.TabIndex = 4;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(191, 33);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(127, 16);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "Tìm kiếm sản phẩm:";
+            // 
+            // txt_Search
+            // 
+            this.txt_Search.Location = new System.Drawing.Point(333, 25);
+            this.txt_Search.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_Search.Name = "txt_Search";
+            this.txt_Search.Size = new System.Drawing.Size(265, 22);
+            this.txt_Search.TabIndex = 14;
             // 
             // username
             // 
             this.username.AutoSize = true;
-            this.username.Location = new System.Drawing.Point(16, 81);
+            this.username.Location = new System.Drawing.Point(21, 100);
+            this.username.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.username.Name = "username";
-            this.username.Size = new System.Drawing.Size(83, 13);
+            this.username.Size = new System.Drawing.Size(105, 16);
             this.username.TabIndex = 9;
             this.username.Text = "Category Name:";
             // 
             // btn_Loc
             // 
-            this.btn_Loc.Location = new System.Drawing.Point(472, 78);
+            this.btn_Loc.Location = new System.Drawing.Point(629, 96);
+            this.btn_Loc.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btn_Loc.Name = "btn_Loc";
-            this.btn_Loc.Size = new System.Drawing.Size(75, 23);
+            this.btn_Loc.Size = new System.Drawing.Size(100, 28);
             this.btn_Loc.TabIndex = 8;
             this.btn_Loc.Text = "Lọc";
             this.btn_Loc.UseVisualStyleBackColor = true;
             // 
             // dateTime_end
             // 
-            this.dateTime_end.Location = new System.Drawing.Point(250, 97);
+            this.dateTime_end.Location = new System.Drawing.Point(333, 119);
+            this.dateTime_end.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dateTime_end.Name = "dateTime_end";
-            this.dateTime_end.Size = new System.Drawing.Size(200, 20);
+            this.dateTime_end.Size = new System.Drawing.Size(265, 22);
             this.dateTime_end.TabIndex = 7;
             // 
             // dateTime_start
             // 
-            this.dateTime_start.Location = new System.Drawing.Point(250, 60);
+            this.dateTime_start.Location = new System.Drawing.Point(333, 74);
+            this.dateTime_start.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dateTime_start.Name = "dateTime_start";
-            this.dateTime_start.Size = new System.Drawing.Size(200, 20);
+            this.dateTime_start.Size = new System.Drawing.Size(265, 22);
             this.dateTime_start.TabIndex = 6;
             // 
             // cbb_NameProducts
             // 
             this.cbb_NameProducts.FormattingEnabled = true;
-            this.cbb_NameProducts.Location = new System.Drawing.Point(105, 78);
+            this.cbb_NameProducts.Location = new System.Drawing.Point(140, 96);
+            this.cbb_NameProducts.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cbb_NameProducts.Name = "cbb_NameProducts";
-            this.cbb_NameProducts.Size = new System.Drawing.Size(121, 21);
+            this.cbb_NameProducts.Size = new System.Drawing.Size(160, 24);
             this.cbb_NameProducts.TabIndex = 4;
-            // 
-            // txt_Search
-            // 
-            this.txt_Search.Location = new System.Drawing.Point(250, 20);
-            this.txt_Search.Name = "txt_Search";
-            this.txt_Search.Size = new System.Drawing.Size(200, 20);
-            this.txt_Search.TabIndex = 14;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(143, 27);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(101, 13);
-            this.label1.TabIndex = 15;
-            this.label1.Text = "Tìm kiếm sản phẩm:";
             // 
             // ProductForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(600, 435);
+            this.ClientSize = new System.Drawing.Size(800, 535);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.toolStrip1);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "ProductForm";
             this.Text = "ProductForm";
             this.toolStrip1.ResumeLayout(false);

@@ -171,8 +171,8 @@
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(37, 16);
-            this.toolStripLabel1.Text = "Add";
+            this.toolStripLabel1.Size = new System.Drawing.Size(46, 16);
+            this.toolStripLabel1.Text = "Thêm";
             this.toolStripLabel1.Click += new System.EventHandler(this.toolStripLabel1_Click);
             // 
             // CategoryForm
