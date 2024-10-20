@@ -107,7 +107,8 @@ namespace QuanLyThongTinDanhGiaSP
 
         private void ViewProducts()
         {
-            ViewProductsRequested?.Invoke(this, _category.category_id);
+            ProductForm frm = new ProductForm();
+            frm.Show();
         }
     }
 }

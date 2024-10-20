@@ -103,6 +103,19 @@ namespace QuanLyThongTinDanhGiaSP
             frm.Show();
         }
 
+        public void btnSProduct_Click()
+        {
+            ProductForm frm = new ProductForm();
+            frm.TopLevel = false;
+            frm.FormBorderStyle = FormBorderStyle.None;
+
+            frm.Size = new Size(panel1.Width, panel1.Height);
+
+            panel1.Controls.Clear();
+            panel1.Controls.Add(frm);
+            frm.Show();
+        }
+
         private void btnAnalytics_Click(object sender, EventArgs e)
         {
             AnalyticsForm frm = new AnalyticsForm();

@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using QuanLyThongTinDanhGiaSP.Models;
 using QuanLyThongTinDanhGiaSP.DAL;
-using QuanLyThongTinDanhGiaSP.Models;
 using QuanLyThongTinDanhGiaSP.Repository;
 using QuanLyThongTinDanhGiaSP.Repository.IRepository;
 
@@ -33,7 +31,6 @@ namespace QuanLyThongTinDanhGiaSP
         private void DisplayReview()
         {
             this.Height = 200;
-
             Label usernameLabel = new Label
             {
                 Text = $"{_review.Username} - Đánh giá: {_review.Rating:F1}",
@@ -43,7 +40,6 @@ namespace QuanLyThongTinDanhGiaSP
             };
             this.Controls.Add(usernameLabel);
 
-            // Nội dung đánh giá
             Label reviewTextLabel = new Label
             {
                 Text = _review.ReviewText,
@@ -101,10 +97,8 @@ namespace QuanLyThongTinDanhGiaSP
 
         private void ReplyButton_Click(object sender, EventArgs e)
         {
-            // Ẩn nút "Trả lời"
             replyButton.Visible = false;
 
-            // Hiển thị TextBox để nhập phản hồi
             replyTextBox = new TextBox
             {
                 Location = new Point(10, 150),
@@ -113,7 +107,6 @@ namespace QuanLyThongTinDanhGiaSP
             };
             this.Controls.Add(replyTextBox);
 
-            // Hiển thị nút "Gửi"
             sendButton = new Button
             {
                 Text = "Gửi",
@@ -123,18 +116,14 @@ namespace QuanLyThongTinDanhGiaSP
             sendButton.Click += SendButton_Click;
             this.Controls.Add(sendButton);
 
-            // Điều chỉnh chiều cao của control
             this.Height += 30;
         }
 
         private void SendButton_Click(object sender, EventArgs e)
         {
-            // Xử lý logic gửi phản hồi ở đây
             string reply = replyTextBox.Text;
-            // TODO: Cập nhật phản hồi vào cơ sở dữ liệu
             _productReviewsReponsitory.UpdateReviewReply(_review.ProductId, _review.ReviewId, reply);
 
-            // Hiển thị phản hồi
             Label confirmLabel = new Label
             {
                 Text = $"Phản hồi: {reply}",
@@ -144,14 +133,11 @@ namespace QuanLyThongTinDanhGiaSP
                 AutoSize = true
             };
 
-            // Xóa TextBox và nút Gửi
             this.Controls.Remove(replyTextBox);
             this.Controls.Remove(sendButton);
 
-            // Thêm nhãn phản hồi
             this.Controls.Add(confirmLabel);
 
-            // Điều chỉnh lại chiều cao của control
             this.Height -= 30;
         }
     }

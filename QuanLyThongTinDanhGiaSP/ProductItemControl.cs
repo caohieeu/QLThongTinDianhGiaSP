@@ -28,7 +28,7 @@ namespace QuanLyThongTinDanhGiaSP
         private void DisplayProductInfo()
         {
             this.BorderStyle = BorderStyle.FixedSingle;
-            this.Size = new System.Drawing.Size(this.Width, 130); // Increased height to accommodate the button
+            this.Size = new System.Drawing.Size(this.Width, 130);
 
             TableLayoutPanel table = new TableLayoutPanel
             {

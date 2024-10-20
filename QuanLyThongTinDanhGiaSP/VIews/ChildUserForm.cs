@@ -117,5 +117,10 @@ namespace QuanLyThongTinDanhGiaSP.VIews
         {
             executeDelete();
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

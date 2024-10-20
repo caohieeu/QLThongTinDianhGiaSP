@@ -19,7 +19,6 @@ namespace QuanLyThongTinDanhGiaSP.VIews
     public partial class MainReviewForm : Form
     {
         private readonly ProductService _productService;
-        private products _product;
         private readonly IProductReviewsReponsitory _productReviewsReponsitory;
         private readonly CassandraContext _cassandraContext = new CassandraContext(Utils.KeySpace);
 
@@ -33,7 +32,6 @@ namespace QuanLyThongTinDanhGiaSP.VIews
             dateTime_start.CustomFormat = "dd/MM/yyyy";
             dateTime_end.Format = DateTimePickerFormat.Custom;
             dateTime_end.CustomFormat = "dd/MM/yyyy";
-            LoadData();
             LoadProductIntoComboBox();
 
             DisplayReviews(_productReviewsReponsitory.GetProductReviews());
@@ -52,18 +50,10 @@ namespace QuanLyThongTinDanhGiaSP.VIews
             }
         }
 
-        public void LoadData()
-        {
-        }
-
         private void toolStripAdd_Click(object sender, EventArgs e)
         {
             ChildProductForm frm = new ChildProductForm("add", null, null);
             frm.ShowDialog();
-            if (frm.IsSave)
-            {
-                LoadData();
-            }
         }
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -116,5 +106,56 @@ namespace QuanLyThongTinDanhGiaSP.VIews
             DisplayReviews(filteredReviews);
         }
 
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            IEnumerable<Product_Review> filteredReviews = _productReviewsReponsitory.GetProductReviews();
+            filteredReviews = filteredReviews.Where(review => review.Rating >= 1 && review.Rating < 2);
+            DisplayReviews(filteredReviews);
+        }
+
+        private void radioButton5_CheckedChanged(object sender, EventArgs e)
+        {
+            IEnumerable<Product_Review> filteredReviews = _productReviewsReponsitory.GetProductReviews();
+            filteredReviews = filteredReviews.Where(review => review.Rating == 5);
+            DisplayReviews(filteredReviews);
+        }
+
+        private void radioButton4_CheckedChanged(object sender, EventArgs e)
+        {
+            IEnumerable<Product_Review> filteredReviews = _productReviewsReponsitory.GetProductReviews();
+            filteredReviews = filteredReviews.Where(review => review.Rating >= 4 && review.Rating < 5);
+            DisplayReviews(filteredReviews);
+        }
+
+        private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        {
+            IEnumerable<Product_Review> filteredReviews = _productReviewsReponsitory.GetProductReviews();
+            filteredReviews = filteredReviews.Where(review => review.Rating >= 3 && review.Rating < 4);
+            DisplayReviews(filteredReviews);
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            IEnumerable<Product_Review> filteredReviews = _productReviewsReponsitory.GetProductReviews();
+            filteredReviews = filteredReviews.Where(review => review.Rating >= 2 && review.Rating < 3);
+            DisplayReviews(filteredReviews);
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            string inputText = textBox1.Text.Trim();
+
+            if (!string.IsNullOrEmpty(inputText))
+            {
+                var filteredUsers = _productReviewsReponsitory.GetProductReviewsByUsername(inputText).ToList();
+
+                DisplayReviews(filteredUsers);
+            }
+            else
+            {
+                var allUsers = _productReviewsReponsitory.GetProductReviews();
+                DisplayReviews(allUsers);
+            }
+        }
     }
 }

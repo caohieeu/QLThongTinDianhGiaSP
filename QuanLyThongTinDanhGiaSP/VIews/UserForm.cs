@@ -41,6 +41,7 @@ namespace QuanLyThongTinDanhGiaSP.VIews
             foreach (var user in users)
             {
                 UserItemControl userControl = new UserItemControl(user);
+                userControl.Width = flowLayoutPanel1.ClientSize.Width - SystemInformation.VerticalScrollBarWidth -20;
                 userControl.EditUserRequested += (sender, userId) =>
                 {
                     OpenEditUserForm(userId);
@@ -85,7 +86,6 @@ namespace QuanLyThongTinDanhGiaSP.VIews
 
             IEnumerable<users> filteredUsers;
 
-            // Lọc theo vai trò
             if (!string.IsNullOrWhiteSpace(selectedUser))
             {
                 filteredUsers = _usersService.FilterUsersByName("username", selectedUser).ToList();
@@ -97,7 +97,7 @@ namespace QuanLyThongTinDanhGiaSP.VIews
                         .ToList();
                 }
             }
-            // Nếu chỉ lọc theo ngày
+
             else if (dateTime_start.Value != null && dateTime_end.Value != null)
             {
                 filteredUsers = _usersService.FilterUsersByDate(selectedDate_Start, selectedDate_End, "dob").ToList();
