@@ -281,6 +281,12 @@
     <Compile Include="VIews\ChildUserForm.Designer.cs">
       <DependentUpon>ChildUserForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="VIews\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VIews\LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="VIews\Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -352,6 +358,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VIews\ChildUserForm.resx">
       <DependentUpon>ChildUserForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VIews\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VIews\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
